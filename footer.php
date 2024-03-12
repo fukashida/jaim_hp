@@ -8,6 +8,7 @@
     </ul>
 </nav>
 <footer>
+    <a href="<?php echo esc_url(home_url('law')); ?>">特定商取引法に基づく表記</a>
     <p>Copyright © 2023 JAIM All rights Reserved.</p>
 </footer>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>

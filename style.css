@@ -336,6 +336,11 @@ nav ul li a {
   width: 340px;
   padding: 45px 0 25px;
 }
+@media screen and (max-width:320px) {
+  .sp #g-nav ul {
+    width: 300px;
+  }
+}
 .sp #g-nav li {
   list-style: none;
   text-align: left;
@@ -452,11 +457,35 @@ nav.footer ul li a {
 footer {
   background-color: #585858;
   padding: 20px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+@media screen and (max-width:540px) {
+  footer {
+    display: block;
+  }
+}
+footer a {
+  color: white;
+  font-size: 14px;
+  text-decoration: underline;
+}
+@media screen and (max-width:540px) {
+  footer a {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }
 }
 footer p {
   color: white;
-  text-align: center;
   font-size: 14px;
+}
+@media screen and (max-width:540px) {
+  footer p {
+    text-align: center;
+  }
 }
 
 h2 {
@@ -1690,6 +1719,54 @@ main.inquiry .about .container form .submit-flex input[type=submit] {
 }
 main.inquiry .about .container form:first-child {
   margin-top: 0;
+}
+@media screen and (max-width:540px) {
+  main.law .top h1 {
+    font-size: 25px;
+  }
+}
+main.law .about .sub-container {
+  margin: 0 auto;
+}
+@media screen and (max-width:1024px) {
+  main.law .about .sub-container {
+    width: 90%;
+  }
+}
+main.law .about .sub-container table {
+  border-collapse: collapse;
+  width: 100%;
+}
+main.law .about .sub-container table tr {
+  border: 2px solid #70BCCB;
+}
+main.law .about .sub-container table tr th {
+  width: 250px;
+  background: #f6feff;
+  padding: 25px;
+  border: 2px solid #70BCCB;
+}
+@media screen and (max-width:540px) {
+  main.law .about .sub-container table tr th {
+    width: 124px;
+    padding: 15px 5px;
+    font-size: 14px;
+  }
+}
+main.law .about .sub-container table tr td {
+  background: white;
+  padding: 25px;
+  border: 2px solid #70BCCB;
+}
+@media screen and (max-width:540px) {
+  main.law .about .sub-container table tr td {
+    padding: 15px 10px;
+    font-size: 14px;
+  }
+}
+main.law .about .sub-container table tr td a {
+  text-decoration: underline;
+  color: #2691a6;
 }
 main .about {
   background: url(./img/top-about.webp) no-repeat center top/100%;
