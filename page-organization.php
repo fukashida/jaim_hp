@@ -109,7 +109,7 @@
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf11.webp" alt="">
                     <div class="item">
                         <p class="std7"><span>柳澤 厚生　</span>Yanagisawa Atsuo</p>
-                        <p class="std5">点滴療法研究会マスターズクラブ　会長<br>
+                        <p class="std5" style="line-height:1.5;">点滴療法研究会マスターズクラブ　会長<br>
                             国際オーソモレキュラー医学会　会長</p>
                     </div>
                 </div>
