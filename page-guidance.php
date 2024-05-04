@@ -112,8 +112,8 @@
                         </div>
                     </div>
                 </div>
+                <p class="as02">年会費は決済された日から数えて1年ごとに毎年決済が行われます。</p>
                 <a class="button" target="_blank" href="<?php echo esc_url(home_url('joining')); ?>">入会ページに進む</a>
-                <p class="as">※準備中。<br>本登録受付までしばらくお待ちください。</p>
             </div>
             <div class="mini-container">
                 <?php get_sidebar(); ?>

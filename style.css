@@ -920,6 +920,13 @@ main.guidance .about .container .sub-container p.as {
     width: 300px;
   }
 }
+main.guidance .about .container .sub-container p.as02 {
+  width: 100%;
+  background: white;
+  padding: 10px;
+  text-align: center;
+  margin-top: 20px;
+}
 main.guidance .about .container .sub-container .type li {
   display: flex;
   gap: 15px;
