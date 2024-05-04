@@ -4,6 +4,12 @@
     <section class="about">
         <div class="container">
             <div class="sub-container">
+                <div class="pc">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/lmAx0RdzxZk?si=sPrdYML9-26WwBiK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="sp">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/lmAx0RdzxZk?si=sPrdYML9-26WwBiK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
                 <a href="https://www.instagram.com/jaim__2023/" target="_blank">
                     <img class="pc" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/banner.webp" alt="公式 Instagram 当学会では、公式Instagramを運営しております。学会の理事紹介や最新のイベント情報など公開しておりますのでぜひご覧ください。アカウントID jaim__2023">
                     <img class="sp" src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/banner-sp.webp" alt="公式 Instagram 当学会では、公式Instagramを運営しております。学会の理事紹介や最新のイベント情報など公開しておりますのでぜひご覧ください。アカウントID jaim__2023">
