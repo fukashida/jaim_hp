@@ -112,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <p class="as02">年会費は決済された日から数えて1年ごとに毎年決済が行われます。</p>
+                <p class="as02">年会費は自動更新され、<br class="sp">毎年入会月に自動決済が行われます</p>
                 <a class="button" target="_blank" href="<?php echo esc_url(home_url('joining')); ?>">入会ページに進む</a>
             </div>
             <div class="mini-container">

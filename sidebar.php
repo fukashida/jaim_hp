@@ -19,4 +19,5 @@
         <?php endif; //条件分岐終了 ?>
     </div>
     <a target="_blank" class="button" href="https://lin.ee/tMc4HRi">公式LINEはこちら</a>
+    <a href="https://www.instagram.com/jaim__2023/" class="button ins" target="_blank">公式Instagram</a>
 </div>
