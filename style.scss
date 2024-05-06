@@ -2003,6 +2003,12 @@
                 border-bottom: 6px solid transparent;
                 border-left: 11px solid white;
             }
+            &.button{
+                &.ins{
+                    background: #2c84a8;
+                    margin-top: 20px;
+                }
+            }
         }
     }
 }
