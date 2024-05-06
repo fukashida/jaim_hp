@@ -75,8 +75,14 @@ if( !empty($_POST['btn_confirm']) ) {
             'company_address' => $_POST['company_address'],
             'manager' => $_POST['manager'],
             'company_url' => $_POST['company_url'],
+            'payment' => $_POST['payment'],
+            'recommend-director' => $_POST['recommend-director'],
+            'recommend-id' => $_POST['recommend-id'],
             'agree_1' => $_POST['agree_1'],
             'agree_2' => $_POST['agree_2'],
+            'agree_student' => $_POST['agree_student'],
+            'agree_special' => $_POST['agree_special'],
+            'agree_usual' => $_POST['agree_usual'],
         );
         $context = array(
             'http' => array(
@@ -214,6 +220,12 @@ function validation($data) {
 	} elseif( empty($data['company_url']) && !empty($_POST['type']) && $_POST['type'] === "特別賛助会員"){
         $error[] = "「企業URL」は必ず入力してください。";
     }  
+    
+    // 推薦理事名のバリデーション[一般会員]
+    if( empty($data['recommend-director']) && !empty($_POST['type']) && $_POST['type'] === "一般会員") {
+        $error[] = "「推薦理事名」は必ず入力してください。";
+    }
+    
 
 
 	return $error;
@@ -287,6 +299,8 @@ function validation($data) {
                         <p>
                         <?php if( empty($_POST['qualification'])){ echo ''; }
                             elseif( $_POST['qualification'] === "選択してください" ){ echo ''; }
+                            elseif( $_POST['qualification'] === "医師" ){ echo '医師'; }
+                            elseif( $_POST['qualification'] === "歯科医師" ){ echo '歯科医師'; }
                             elseif( $_POST['qualification'] === "薬剤師" ){ echo '薬剤師'; }
                             elseif( $_POST['qualification'] === "保健師" ){ echo '保健師'; }
                             elseif( $_POST['qualification'] === "助産師" ){ echo '助産師'; }
@@ -412,6 +426,16 @@ function validation($data) {
                             <p><?php if( $_POST['type'] === "賛助会員" | $_POST['type'] === "特別賛助会員" ){echo $_POST['company_url'];} ?></p>
                         </div>
 
+                        <div class="element_wrap">
+                            <label>支払い方法</label>
+                            <p>
+                            <?php if( empty($_POST['payment'])){ echo ''; }
+                                elseif( $_POST['payment'] === "銀行振込" ){ echo '銀行振込'; }
+                                elseif( $_POST['payment'] === "クレジットカード決済" ){ echo 'クレジットカード決済'; }
+                                ?>
+                            </p>
+                        </div>
+
                     <?php else: ?>
                     <?php endif; ?>
 
@@ -454,12 +478,24 @@ function validation($data) {
                         </div>
                         <?php if( empty($_POST['other_students']) ): ?>
                             <?php elseif( $_POST['student'] === "学生 その他" || $_POST['student'] === "大学院 その他"): ?>
-                            <div class="element_wrap">
-                                <label>学生分野</label>
-                                <p><?php echo $_POST['other_students']; ?></p>
-                            </div>
+                                <div class="element_wrap">
+                                    <label>学生分野</label>
+                                    <p><?php echo $_POST['other_students']; ?></p>
+                                </div>
                             <?php else: { echo ''; }?>
                         <?php endif; ?>
+                    <?php else: ?>
+                    <?php endif; ?>
+
+                    <?php  if( !empty($_POST['type']) && $_POST['type'] === "一般会員"): ?>
+                        <div class="element_wrap">
+                            <label>推薦理事名</label>
+                            <p><?php if( $_POST['type'] === "一般会員" ){echo $_POST['recommend-director'];} ?></p>
+                        </div>
+                        <div class="element_wrap">
+                            <label>推薦ID</label>
+                            <p><?php if( $_POST['type'] === "一般会員" ){echo $_POST['recommend-id'];} ?></p>
+                        </div>
                     <?php else: ?>
                     <?php endif; ?>
 
@@ -473,6 +509,22 @@ function validation($data) {
                         if($_POST['agree_2']){ echo '同意'; }
                         else { echo ' '; }
                     ?></p>
+
+                    <p style="display: none"><?php 
+                        if($_POST['agree_student']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+                    
+                    <p style="display: none"><?php 
+                        if($_POST['agree_special']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+
+                    <p style="display: none"><?php 
+                        if($_POST['agree_usual']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+
 
                     <div class="submit-flex">
                         <div class="button">
@@ -511,9 +563,15 @@ function validation($data) {
                     <input type="hidden" name="company_address" value="<?php echo $_POST['company_address']; ?>">
                     <input type="hidden" name="manager" value="<?php echo $_POST['manager']; ?>">
                     <input type="hidden" name="company_url" value="<?php echo $_POST['company_url']; ?>">
+                    <input type="hidden" name="payment" value="<?php if( empty($_POST['payment'])){ echo ''; } elseif( !empty($_POST['payment'] === "選択してください") ){ echo "";} else { echo $_POST['payment']; }?>">
+                    <input type="hidden" name="recommend-director" value="<?php echo $_POST['recommend-director']; ?>">
+                    <input type="hidden" name="recommend-id" value="<?php echo $_POST['recommend-id']; ?>">
 
                     <input type="hidden" name="agree_1" value="<?php if( empty($_POST['agree_1'])){ echo ''; }else { echo $_POST['agree_1']; }?>">
                     <input type="hidden" name="agree_2" value="<?php if( empty($_POST['agree_2'])){ echo ''; }else { echo $_POST['agree_2']; }?>">
+                    <input type="hidden" name="agree_student" value="<?php if( empty($_POST['agree_student'])){ echo ''; }else { echo $_POST['agree_student']; }?>">
+                    <input type="hidden" name="agree_special" value="<?php if( empty($_POST['agree_special'])){ echo ''; }else { echo $_POST['agree_special']; }?>">
+                    <input type="hidden" name="agree_usual" value="<?php if( empty($_POST['agree_usual'])){ echo ''; }else { echo $_POST['agree_usual']; }?>">
                 </form>
 
             </div>
@@ -671,6 +729,8 @@ function validation($data) {
                     </div>
                     <select class="select scroll" name="qualification">
                         <option vallue="選択してください" style="color:#A1A1A1;" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "選択してください" ){ echo 'selected'; } ?> >選択してください</option>
+                        <option value="医師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "医師" ){ echo 'selected'; } ?>>医師</option>
+                        <option value="歯科医師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "歯科医師" ){ echo 'selected'; } ?>>歯科医師</option>
                         <option value="薬剤師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "薬剤師" ){ echo 'selected'; } ?>>薬剤師</option>
                         <option value="保健師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "保健師" ){ echo 'selected'; } ?>>保健師</option>
                         <option value="助産師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "助産師" ){ echo 'selected'; } ?>>助産師</option>
@@ -787,7 +847,7 @@ function validation($data) {
                      <!-- [賛助会員][特別賛助会員] -->
                     <div class="target hidden">
 
-                    <div class="label-flex up">
+                        <div class="label-flex up">
                             <label for="">団体、企業</label>
                             <p>必須</p>
                         </div>
@@ -835,8 +895,8 @@ function validation($data) {
                         </div>
                     
                         <div class="label-flex">
-                        <label for="">企業名</label>
-                        <p>必須</p>
+                            <label for="">企業名</label>
+                            <p>必須</p>
                         </div>
                         <div class="flex-item">
                             <p>
@@ -874,6 +934,20 @@ function validation($data) {
                             </p>
                         </div>    
 
+                        <div class="label-flex up">
+                            <label for="">支払い方法</label>
+                        </div>
+                        <select name="payment" class="select">
+                            <option vallue="" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "選択してください" ){ echo 'selected'; } ?>>選択してください</option>
+                            <option value="銀行振込" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "銀行振込" ){ echo 'selected'; } ?>>銀行振込</option>
+                            <option value="クレジットカード決済" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "クレジットカード決済" ){ echo 'selected'; } ?>>クレジットカード決済</option>
+                        </select>
+
+
+                        <div class="agree">
+                            <input type="checkbox" name="agree_special" value="同意" <?php if( !empty($clean['agree_special']) && $clean['agree_special'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">入会にあたり審査がございます。<br>審査結果は申し込み完了後に担当者よりご連絡致します。</label>
+                        </div>
 
                     </div>
 
@@ -933,6 +1007,8 @@ function validation($data) {
                         </div>
                         <select class="select scroll" name="specialty">
                             <option vallue="選択してください" <?php if( !empty($_POST['specialty']) ){ echo ''; } ?> disabled selected style="display:none;color: #A1A1A1;">選択してください</option>
+                            <option value="医師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "医師" ){ echo 'selected'; } ?>>医師</option>
+                            <option value="歯科医師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "歯科医師" ){ echo 'selected'; } ?>>歯科医師</option>
                             <option value="薬剤師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "薬剤師" ){ echo 'selected'; } ?>>薬剤師</option>
                             <option value="保健師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "保健師" ){ echo 'selected'; } ?>>保健師</option>
                             <option value="助産師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "助産師" ){ echo 'selected'; } ?>>助産師</option>
@@ -1022,8 +1098,38 @@ function validation($data) {
                             </p>
                         </div>
 
+                        <div class="agree">
+                            <input type="checkbox" name="agree_student" value="同意" <?php if( !empty($clean['agree_student']) && $clean['agree_student'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">学生証の提出が必須になります。<br class="sp">申込完了後に公式LINEに送付をお願い致します。</label>
+                        </div>
+
                     </div>
 
+                    <!-- 一般会員 -->
+                    <div class="target hidden">
+                        <div class="label-flex up">
+                            <label for="">推薦理事名</label>
+                            <p>必須</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="text" name="recommend-director" value="<?php if( !empty($_POST['recommend-director']) ){ echo $_POST['recommend-director']; } ?>" placeholder="">
+                            </p>
+                        </div>
+                        <div class="label-flex up">
+                            <label for="">推薦ID</label>
+                            <p class="as">※任意</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="text" name="recommend-id" value="<?php if( !empty($_POST['recommend-id']) ){ echo $_POST['recommend-id']; } ?>" placeholder="">
+                            </p>
+                        </div>
+                        <div class="agree">
+                            <input type="checkbox" name="agree_usual" value="同意" <?php if( !empty($clean['agree_usual']) && $clean['agree_usual'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">入会にあたり審査がございます。<br>審査結果は申し込み完了後に担当者よりご連絡致します。</label>
+                        </div>
+                    </div>
 
                     <div class="agree">
                         <input type="checkbox" name="agree_1" value="同意" <?php if( !empty($clean['agree_1']) && $clean['agree_1'] === "1" ){ echo 'checked'; } ?>>
@@ -1077,7 +1183,12 @@ function validation($data) {
                             target.classList.remove('hidden');
                         </script>
                     <?php endif; ?>
-
+                    <?php if( !empty($_POST['type']) && $_POST['type'] === "一般会員" ): ?>
+                        <script>
+                            var target = document.getElementsByClassName("target")[4];
+                            target.classList.remove('hidden');
+                        </script>
+                    <?php endif; ?>
                 </form>
 
         </div>
