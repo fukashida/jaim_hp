@@ -136,6 +136,13 @@
                         <p class="std5">日本抗加齢医学会理事⻑、<br class="sp">近畿大学医学部 客員教授</p>
                     </div>
                 </div>
+                <div class="flex">
+                    <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf15.webp" alt="">
+                    <div class="item">
+                        <p class="std7"><span>小林弘幸　</span>Kobayashi Hiroyuki</p>
+                        <p class="std5" style="line-height:1.5;">順天堂大学医学部 病院管理学 絲合診療科 教授<br>東京都医師会 医療支援担当理事</p>
+                    </div>
+                </div>
                 <a class="std7" target="_blank" href="https://jaim2023.com/pdf/incorporation.pdf">定款はこちら</a>
             </div>
             <div class="mini-container">

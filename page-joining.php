@@ -43,10 +43,20 @@ if( !empty($_POST['btn_confirm']) ) {
 		unset($_SESSION['page']);
 
 	$page_flag = 2;
+    
+
+    // 変数とタイムゾーンを初期化
+    $header = null;
+    $auto_reply_subject = null;
+    $auto_reply_text = null;
+    $admin_reply_subject = null;
+    $admin_reply_text = null;
+    date_default_timezone_set('Asia/Tokyo');
 
     if(count($_POST)){
-        $url = 'https://script.google.com/macros/s/AKfycbxoyNuzDwTjzYYdgUh5ES6l4xrGBGUNDUM38AgSmxi2SObckTn9PfBsaQBLst5mxLBY/exec';
+        $url = 'https://script.google.com/macros/s/AKfycbyZWlu7BItkNn2dXTC0eTzNe51lqAp3CkceJlw7IcrcjTn_Ii7x0Pq3_1Og7ynKd2PWIg/exec';
         $data = array(
+            'time' => date("Y/m/d H:i:s"),
             'your_name' => $_POST['your_name'],
             'hurigana' => $_POST['hurigana'],
             'email' => $_POST['email'],
@@ -96,13 +106,6 @@ if( !empty($_POST['btn_confirm']) ) {
         var_dump($response_data);
     }
 
-    // 変数とタイムゾーンを初期化
-    $header = null;
-    $auto_reply_subject = null;
-    $auto_reply_text = null;
-    $admin_reply_subject = null;
-    $admin_reply_text = null;
-    date_default_timezone_set('Asia/Tokyo');
 
     // ヘッダー情報を設定
     $header = "MIME-Version: 1.0\n";
@@ -792,6 +795,7 @@ function validation($data) {
                         </div>
                     </div>
 
+                    <input type="hidden" name="time" value="<?php echo date("Y/m/d H:i:s") ?>">
                     <input type="hidden" name="your_name" value="<?php echo $_POST['your_name']; ?>">
                     <input type="hidden" name="hurigana" value="<?php echo $_POST['hurigana']; ?>">
                     <input type="hidden" name="email" value="<?php echo $_POST['email']; ?>">
