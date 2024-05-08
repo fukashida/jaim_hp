@@ -53,4 +53,12 @@ function myfunc() {
     target.classList.add('hidden');
   }
 
+  var target = document.getElementsByClassName("target")[4];
+  if (value === '一般会員') {
+    // ボタンクリックでhiddenクラスを付け外しする
+    target.classList.remove('hidden');
+  }  else if (value === '賛助会員' | value === '特別賛助会員' | value === '正会員A' | value === '学生会員' | value === '正会員B') {
+    target.classList.add('hidden');
+  }
+
 }

@@ -43,10 +43,20 @@ if( !empty($_POST['btn_confirm']) ) {
 		unset($_SESSION['page']);
 
 	$page_flag = 2;
+    
+
+    // 変数とタイムゾーンを初期化
+    $header = null;
+    $auto_reply_subject = null;
+    $auto_reply_text = null;
+    $admin_reply_subject = null;
+    $admin_reply_text = null;
+    date_default_timezone_set('Asia/Tokyo');
 
     if(count($_POST)){
-        $url = 'https://script.google.com/macros/s/AKfycbyNljcL3x2qha6NesqoE2hlFMrDvHHJF7a4Y6EunNe3hSBEoNWt1wflS8Ede2yGHBpqQA/exec';
+        $url = 'https://script.google.com/macros/s/AKfycbyZWlu7BItkNn2dXTC0eTzNe51lqAp3CkceJlw7IcrcjTn_Ii7x0Pq3_1Og7ynKd2PWIg/exec';
         $data = array(
+            'time' => date("Y/m/d H:i:s"),
             'your_name' => $_POST['your_name'],
             'hurigana' => $_POST['hurigana'],
             'email' => $_POST['email'],
@@ -75,8 +85,14 @@ if( !empty($_POST['btn_confirm']) ) {
             'company_address' => $_POST['company_address'],
             'manager' => $_POST['manager'],
             'company_url' => $_POST['company_url'],
+            'payment' => $_POST['payment'],
+            'recommend_director' => $_POST['recommend_director'],
+            'recommend_id' => $_POST['recommend_id'],
             'agree_1' => $_POST['agree_1'],
             'agree_2' => $_POST['agree_2'],
+            'agree_student' => $_POST['agree_student'],
+            'agree_special' => $_POST['agree_special'],
+            'agree_usual' => $_POST['agree_usual'],
         );
         $context = array(
             'http' => array(
@@ -89,6 +105,238 @@ if( !empty($_POST['btn_confirm']) ) {
         $response_data = json_decode($response_json);
         var_dump($response_data);
     }
+
+
+    // ヘッダー情報を設定
+    $header = "MIME-Version: 1.0\n";
+    $header .= "From: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
+    $header .= "Reply-To: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
+
+    // 件名を設定
+    $auto_reply_subject = 'ご入会のお申し込みありがとうございます';
+
+    // 本文を設定
+    $auto_reply_text .=  "※このメールはシステムからの自動返信です\n";
+    $auto_reply_text .=  "\n";
+    $auto_reply_text .=  "" . $_POST['your_name'] . "様\n";
+    $auto_reply_text .=  "\n";
+    $auto_reply_text .=  "お世話になっております。\n";
+    $auto_reply_text .=  "日本美容内科学会へのご入会申し込みありがとうございました。\n\n";
+    $auto_reply_text .=  "以下の内容でお申し込みを受け付けいたしました。\n";
+    $auto_reply_text .=  "\n";
+    $auto_reply_text .=  "━━━━━━□■□　お申し込み内容　□■□━━━━━━\n";
+    $auto_reply_text .=  "お問い合わせ日時：" . date("Y-m-d H:i") . "\n";
+    $auto_reply_text .= "氏名：" . $_POST['your_name'] . "\n";
+    $auto_reply_text .= "フリガナ：" . $_POST['hurigana'] . "\n";
+    $auto_reply_text .= "メールアドレス：" . $_POST['email'] . "\n";
+    $auto_reply_text .= "電話番号：" . $_POST['tel'] . "\n";
+    $auto_reply_text .= "住所：" . $_POST['your_address'] . "\n";
+    if( $_POST['gender'] === "男性" ){
+    $auto_reply_text .= "性別：男性\n";
+    } elseif ( $_POST['gender'] === "女性" ){
+    $auto_reply_text .= "性別：女性\n";
+    } else {
+    $auto_reply_text .= "性別：\n";
+    }
+    $auto_reply_text .= "生年月日：" . $_POST['birth'] . "\n";
+    if( $_POST['qualification'] === "選択してください" ){ $auto_reply_text .= "国家資格の免許の種類：\n"; }
+    elseif( $_POST['qualification'] === "医師" ){ $auto_reply_text .= "国家資格の免許の種類：医師\n"; }
+    elseif( $_POST['qualification'] === "歯科医師" ){ $auto_reply_text .= "国家資格の免許の種類：歯科医師\n"; }
+    elseif( $_POST['qualification'] === "薬剤師" ){ $auto_reply_text .= "国家資格の免許の種類：薬剤師\n"; }
+    elseif( $_POST['qualification'] === "保健師" ){ $auto_reply_text .= "国家資格の免許の種類：保健師\n"; }
+    elseif( $_POST['qualification'] === "助産師" ){ $auto_reply_text .= "国家資格の免許の種類：助産師\n"; }
+    elseif( $_POST['qualification'] === "看護師" ){ $auto_reply_text .= "国家資格の免許の種類：看護師\n"; }
+    elseif( $_POST['qualification'] === "診療放射線技師" ){ $auto_reply_text .= "国家資格の免許の種類：診療放射線技師\n"; }
+    elseif( $_POST['qualification'] === "臨床検査技師" ){ $auto_reply_text .= "国家資格の免許の種類：臨床検査技師\n"; }
+    elseif( $_POST['qualification'] === "臨床工学技士" ){ $auto_reply_text .= "国家資格の免許の種類：臨床工学技士\n"; }
+    elseif( $_POST['qualification'] === "衛生検査技師" ){ $auto_reply_text .= "国家資格の免許の種類：衛生検査技師\n"; }
+    elseif( $_POST['qualification'] === "あん摩マッサージ指圧師" ){ $auto_reply_text .= "国家資格の免許の種類：あん摩マッサージ指圧師\n"; }
+    elseif( $_POST['qualification'] === "はり師" ){ $auto_reply_text .= "国家資格の免許の種類：はり師\n"; }
+    elseif( $_POST['qualification'] === "きゅう師" ){ $auto_reply_text .= "国家資格の免許の種類：きゅう師\n"; }
+    elseif( $_POST['qualification'] === "柔道整復師" ){ $auto_reply_text .= "国家資格の免許の種類：柔道整復師\n"; }
+    elseif( $_POST['qualification'] === "理学療法士" ){ $auto_reply_text .= "国家資格の免許の種類：理学療法士\n"; }
+    elseif( $_POST['qualification'] === "作業療法士" ){ $auto_reply_text .= "国家資格の免許の種類：作業療法士\n"; }
+    elseif( $_POST['qualification'] === "視能訓練士" ){ $auto_reply_text .= "国家資格の免許の種類：視能訓練士\n"; }
+    elseif( $_POST['qualification'] === "義肢装具士" ){ $auto_reply_text .= "国家資格の免許の種類：義肢装具士\n"; }
+    elseif( $_POST['qualification'] === "歯科衛生士" ){ $auto_reply_text .= "国家資格の免許の種類：歯科衛生士\n"; }
+    elseif( $_POST['qualification'] === "歯科技工士" ){ $auto_reply_text .= "国家資格の免許の種類：歯科技工士\n"; }
+    elseif( $_POST['qualification'] === "救急救命士" ){ $auto_reply_text .= "国家資格の免許の種類：救急救命士\n"; }
+    elseif( $_POST['qualification'] === "社会福祉士" ){ $auto_reply_text .= "国家資格の免許の種類：社会福祉士\n"; }
+    elseif( $_POST['qualification'] === "介護福祉士" ){ $auto_reply_text .= "国家資格の免許の種類：介護福祉士\n"; }
+    elseif( $_POST['qualification'] === "精神保健福祉士" ){ $auto_reply_text .= "国家資格の免許の種類：精神保健福祉士\n"; }
+    elseif( $_POST['qualification'] === "言語聴覚士" ){ $auto_reply_text .= "国家資格の免許の種類：言語聴覚士\n"; }
+    elseif( $_POST['qualification'] === "管理栄養士" ){ $auto_reply_text .= "国家資格の免許の種類：管理栄養士\n"; }
+    elseif( $_POST['qualification'] === "臨床心理士" ){ $auto_reply_text .= "国家資格の免許の種類：臨床心理士\n"; }
+    elseif( $_POST['qualification'] === "健康運動指導士" ){ $auto_reply_text .= "国家資格の免許の種類：健康運動指導士\n"; }
+    elseif( $_POST['qualification'] === "運動療法士" ){ $auto_reply_text .= "国家資格の免許の種類：運動療法士\n"; }
+    elseif( $_POST['qualification'] === "音楽療法士" ){ $auto_reply_text .= "国家資格の免許の種類：音楽療法士\n"; }
+    elseif( $_POST['qualification'] === "医療環境管理士" ){ $auto_reply_text .= "国家資格の免許の種類：医療環境管理士\n"; }
+    elseif( $_POST['qualification'] === "獣医" ){ $auto_reply_text .= "国家資格の免許の種類：獣医\n"; }
+    elseif( $_POST['qualification'] === "その他" ){ 
+        $auto_reply_text .= "国家資格の免許の種類：その他\n"; 
+        $auto_reply_text .= "国家資格の免許の種類（その他）：" . $_POST['others'] . "\n";
+    }
+    else {
+        $auto_reply_text .= "国家資格の免許の種類：\n";
+    }
+    $auto_reply_text .= "免許番号：" . $_POST['number'] . "\n";
+    $auto_reply_text .= "取得年月日：" . $_POST['acquisition'] . "\n";
+    $auto_reply_text .= "所属施設名（病院、クリニック、会社、学校等）：" . $_POST['corporate_name'] . "\n";
+    $auto_reply_text .= "住所（病院、クリニック、会社、学校等）：" . $_POST['address'] . "\n";
+    $auto_reply_text .= "電話番号（病院、クリニック、会社、学校等）：" . $_POST['clinic_tel'] . "\n";
+    if( $_POST['destination'] === "自宅" ){ $auto_reply_text .= "連絡先・書類送付先：自宅\n"; }
+    elseif( $_POST['destination'] === "職場" ){ $auto_reply_text .= "連絡先・書類送付先：職場\n"; }
+    else {
+        $auto_reply_text .= "連絡先・書類送付先：\n";
+        }
+    if( $_POST['type'] === "正会員A" ){ 
+        $auto_reply_text .= "会員区分：正会員A\n"; 
+        $auto_reply_text .= "医師、歯科医師（基本分野）：" . $_POST['field'] . "\n";
+        $auto_reply_text .= "医師、歯科医師（基本分野ならびに専門領域にない分野）：" . $_POST['other_field'] . "\n";
+    }
+    elseif( $_POST['type'] === "正会員B" ){ 
+        $auto_reply_text .= "会員区分：正会員B\n"; 
+        $auto_reply_text .= "医療従事者（専門）：" . $_POST['specialty'] . "\n";
+        $auto_reply_text .= "医療従事者（その他専門）：" . $_POST['other_specialty'] . "\n";
+
+    }
+    elseif( $_POST['type'] === "一般会員" ){ 
+        $auto_reply_text .= "会員区分：一般会員\n"; 
+        $auto_reply_text .= "推薦理事名：" . $_POST['recommend_director'] . "\n";
+        $auto_reply_text .= "推薦ID：" . $_POST['recommend_id'] . "\n";
+    }
+    elseif( $_POST['type'] === "学生会員" ){ 
+        $auto_reply_text .= "会員区分：学生会員\n"; 
+        $auto_reply_text .= "学生分野：" . $_POST['student'] . "\n";
+        $auto_reply_text .= "学生分野（その他）：" . $_POST['other_students'] . "\n";
+    }
+    elseif( $_POST['type'] === "賛助会員" ){ 
+        $auto_reply_text .= "会員区分：賛助会員\n"; 
+        if( $_POST['organization'] === "選択してください" ){ $auto_reply_text .= "団体、企業：\n"; }
+        elseif( $_POST['organization'] === "公務・公共団体" ){ $auto_reply_text .= "団体、企業：公務・公共団体\n"; }
+        elseif( $_POST['organization'] === "製薬関連" ){ $auto_reply_text .= "団体、企業：製薬関連\n"; }
+        elseif( $_POST['organization'] === "薬品卸" ){ $auto_reply_text .= "団体、企業：薬品卸\n"; }
+        elseif( $_POST['organization'] === "薬品販売" ){ $auto_reply_text .= "団体、企業：薬品販売\n"; }
+        elseif( $_POST['organization'] === "化粧品関連" ){ $auto_reply_text .= "団体、企業：化粧品関連\n"; }
+        elseif( $_POST['organization'] === "食品関連" ){ $auto_reply_text .= "団体、企業：食品関連\n"; }
+        elseif( $_POST['organization'] === "健康関連" ){ $auto_reply_text .= "団体、企業：健康関連\n"; }
+        elseif( $_POST['organization'] === "施設（医療）" ){ $auto_reply_text .= "団体、企業：施設（医療）\n"; }
+        elseif( $_POST['organization'] === "施設（介護）" ){ $auto_reply_text .= "団体、企業：施設（介護）\n"; }
+        elseif( $_POST['organization'] === "施設（老人施設）" ){ $auto_reply_text .= "団体、企業：施設（老人施設）\n"; }
+        elseif( $_POST['organization'] === "医療機器・医療用品関連" ){ $auto_reply_text .= "団体、企業：医療機器・医療用品関連\n"; }
+        elseif( $_POST['organization'] === "健康機器・健康用品関連" ){ $auto_reply_text .= "団体、企業：健康機器・健康用品関連\n"; }
+        elseif( $_POST['organization'] === "スポーツ・運動施設" ){ $auto_reply_text .= "団体、企業：スポーツ・運動施設\n"; }
+        elseif( $_POST['organization'] === "マスコミ・メディア" ){ $auto_reply_text .= "団体、企業：マスコミ・メディア\n"; }
+        elseif( $_POST['organization'] === "教育関連業" ){ $auto_reply_text .= "団体、企業：教育関連業\n"; }
+        elseif( $_POST['organization'] === "農業" ){ $auto_reply_text .= "団体、企業：農業\n"; }
+        elseif( $_POST['organization'] === "建設業" ){ $auto_reply_text .= "団体、企業：建設業\n"; }
+        elseif( $_POST['organization'] === "製造業" ){ $auto_reply_text .= "団体、企業：製造業\n"; }
+        elseif( $_POST['organization'] === "電気ガス熱水道業" ){ $auto_reply_text .= "団体、企業：電気ガス熱水道業\n"; }
+        elseif( $_POST['organization'] === "情報通信業" ){ $auto_reply_text .= "団体、企業：情報通信業\n"; }
+        elseif( $_POST['organization'] === "運輸業" ){ $auto_reply_text .= "団体、企業：運輸業\n"; }
+        elseif( $_POST['organization'] === "卸売り・小売業" ){ $auto_reply_text .= "団体、企業：卸売り・小売業\n"; }
+        elseif( $_POST['organization'] === "金融・保険業" ){ $auto_reply_text .= "団体、企業：金融・保険業\n"; }
+        elseif( $_POST['organization'] === "不動産業" ){ $auto_reply_text .= "団体、企業：不動産業\n"; }
+        elseif( $_POST['organization'] === "飲食店・宿泊業" ){ $auto_reply_text .= "団体、企業：飲食店・宿泊業\n"; }
+        elseif( $_POST['organization'] === "医療・福祉業" ){ $auto_reply_text .= "団体、企業：医療・福祉業\n"; }
+        elseif( $_POST['organization'] === "サービス業" ){ $auto_reply_text .= "団体、企業：サービス業\n"; }
+        elseif( $_POST['organization'] === "美容関連" ){ $auto_reply_text .= "団体、企業：美容関連\n"; }
+        elseif( $_POST['organization'] === "その他" ){ 
+            $auto_reply_text .= "団体、企業：その他\n"; 
+            $auto_reply_text .= "団体、企業（その他）：" . $_POST['other_organization'] . "\n";
+        }
+        else {
+            $auto_reply_text .= "団体、企業：\n";
+        }
+        $auto_reply_text .= "企業名：" . $_POST['company'] . "\n";
+        $auto_reply_text .= "企業アドレス：" . $_POST['company_address'] . "\n";
+        $auto_reply_text .= "担当者：" . $_POST['manager'] . "\n";
+        $auto_reply_text .= "企業URL：" . $_POST['company_url'] . "\n";
+        if( $_POST['payment'] === "銀行振込" ){ $auto_reply_text .= "支払い方法：銀行振込\n"; }
+        elseif( $_POST['payment'] === "クレジットカード決済" ){ $auto_reply_text .= "支払い方法：クレジットカード決済\n"; }
+        else {
+            $auto_reply_text .= "支払い方法：\n";
+            }
+    }
+    elseif( $_POST['type'] === "特別賛助会員" ){ 
+        $auto_reply_text .= "会員区分：特別賛助会員\n"; 
+        if( $_POST['organization'] === "選択してください" ){ $auto_reply_text .= "団体、企業：\n"; }
+        elseif( $_POST['organization'] === "公務・公共団体" ){ $auto_reply_text .= "団体、企業：公務・公共団体\n"; }
+        elseif( $_POST['organization'] === "製薬関連" ){ $auto_reply_text .= "団体、企業：製薬関連\n"; }
+        elseif( $_POST['organization'] === "薬品卸" ){ $auto_reply_text .= "団体、企業：薬品卸\n"; }
+        elseif( $_POST['organization'] === "薬品販売" ){ $auto_reply_text .= "団体、企業：薬品販売\n"; }
+        elseif( $_POST['organization'] === "化粧品関連" ){ $auto_reply_text .= "団体、企業：化粧品関連\n"; }
+        elseif( $_POST['organization'] === "食品関連" ){ $auto_reply_text .= "団体、企業：食品関連\n"; }
+        elseif( $_POST['organization'] === "健康関連" ){ $auto_reply_text .= "団体、企業：健康関連\n"; }
+        elseif( $_POST['organization'] === "施設（医療）" ){ $auto_reply_text .= "団体、企業：施設（医療）\n"; }
+        elseif( $_POST['organization'] === "施設（介護）" ){ $auto_reply_text .= "団体、企業：施設（介護）\n"; }
+        elseif( $_POST['organization'] === "施設（老人施設）" ){ $auto_reply_text .= "団体、企業：施設（老人施設）\n"; }
+        elseif( $_POST['organization'] === "医療機器・医療用品関連" ){ $auto_reply_text .= "団体、企業：医療機器・医療用品関連\n"; }
+        elseif( $_POST['organization'] === "健康機器・健康用品関連" ){ $auto_reply_text .= "団体、企業：健康機器・健康用品関連\n"; }
+        elseif( $_POST['organization'] === "スポーツ・運動施設" ){ $auto_reply_text .= "団体、企業：スポーツ・運動施設\n"; }
+        elseif( $_POST['organization'] === "マスコミ・メディア" ){ $auto_reply_text .= "団体、企業：マスコミ・メディア\n"; }
+        elseif( $_POST['organization'] === "教育関連業" ){ $auto_reply_text .= "団体、企業：教育関連業\n"; }
+        elseif( $_POST['organization'] === "農業" ){ $auto_reply_text .= "団体、企業：農業\n"; }
+        elseif( $_POST['organization'] === "建設業" ){ $auto_reply_text .= "団体、企業：建設業\n"; }
+        elseif( $_POST['organization'] === "製造業" ){ $auto_reply_text .= "団体、企業：製造業\n"; }
+        elseif( $_POST['organization'] === "電気ガス熱水道業" ){ $auto_reply_text .= "団体、企業：電気ガス熱水道業\n"; }
+        elseif( $_POST['organization'] === "情報通信業" ){ $auto_reply_text .= "団体、企業：情報通信業\n"; }
+        elseif( $_POST['organization'] === "運輸業" ){ $auto_reply_text .= "団体、企業：運輸業\n"; }
+        elseif( $_POST['organization'] === "卸売り・小売業" ){ $auto_reply_text .= "団体、企業：卸売り・小売業\n"; }
+        elseif( $_POST['organization'] === "金融・保険業" ){ $auto_reply_text .= "団体、企業：金融・保険業\n"; }
+        elseif( $_POST['organization'] === "不動産業" ){ $auto_reply_text .= "団体、企業：不動産業\n"; }
+        elseif( $_POST['organization'] === "飲食店・宿泊業" ){ $auto_reply_text .= "団体、企業：飲食店・宿泊業\n"; }
+        elseif( $_POST['organization'] === "医療・福祉業" ){ $auto_reply_text .= "団体、企業：医療・福祉業\n"; }
+        elseif( $_POST['organization'] === "サービス業" ){ $auto_reply_text .= "団体、企業：サービス業\n"; }
+        elseif( $_POST['organization'] === "美容関連" ){ $auto_reply_text .= "団体、企業：美容関連\n"; }
+        elseif( $_POST['organization'] === "その他" ){ 
+            $auto_reply_text .= "団体、企業：その他\n"; 
+            $auto_reply_text .= "団体、企業（その他）：" . $_POST['other_organization'] . "\n";
+        }
+        else {
+            $auto_reply_text .= "団体、企業：\n";
+        }
+        $auto_reply_text .= "企業名：" . $_POST['company'] . "\n";
+        $auto_reply_text .= "企業アドレス：" . $_POST['company_address'] . "\n";
+        $auto_reply_text .= "担当者：" . $_POST['manager'] . "\n";
+        $auto_reply_text .= "企業URL：" . $_POST['company_url'] . "\n";
+        if( $_POST['payment'] === "銀行振込" ){ $auto_reply_text .= "支払い方法：銀行振込\n"; }
+        elseif( $_POST['payment'] === "クレジットカード決済" ){ $auto_reply_text .= "支払い方法：クレジットカード決済\n"; }
+        else {
+            $auto_reply_text .= "支払い方法：\n";
+            }
+    }
+    else {
+        $auto_reply_text .= "会員区分：\n";
+        }
+    $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+
+    $auto_reply_text .= "———————————————————————\n\n";
+    $auto_reply_text .= "【一般社団法人日本美容内科学会】\n";
+    $auto_reply_text .= "住所：〒104-0061　東京都中央区銀座1-12-4 N&E BLD. 7階\n";
+    $auto_reply_text .= "TEL：090-3813-7241\n";
+    $auto_reply_text .= "メール：ask@jaim2023.com\n";
+    $auto_reply_text .= "担当：伊藤　明子\n\n";
+    $auto_reply_text .= "———————————————————————\n";
+
+
+    // メール送信
+    mb_send_mail( $_POST['email'], $auto_reply_subject, $auto_reply_text, $header);
+
+
+    // リダイレクトの多重送信防止ここから
+
+    // POSTで呼ばれた
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // フォームが送信された時の処理を行う
+
+    // 現在のページにGETリダイレクトをかける
+    header("Location: " . $_SERVER['REQUEST_URI']);
+    exit;
+    }
+
+    // リダイレクトの多重送信防止ここまで
+
 
     } else {
         $page_flag = 0;
@@ -214,6 +462,12 @@ function validation($data) {
 	} elseif( empty($data['company_url']) && !empty($_POST['type']) && $_POST['type'] === "特別賛助会員"){
         $error[] = "「企業URL」は必ず入力してください。";
     }  
+    
+    // 推薦理事名のバリデーション[一般会員]
+    if( empty($data['recommend_director']) && !empty($_POST['type']) && $_POST['type'] === "一般会員") {
+        $error[] = "「推薦理事名」は必ず入力してください。";
+    }
+    
 
 
 	return $error;
@@ -287,6 +541,8 @@ function validation($data) {
                         <p>
                         <?php if( empty($_POST['qualification'])){ echo ''; }
                             elseif( $_POST['qualification'] === "選択してください" ){ echo ''; }
+                            elseif( $_POST['qualification'] === "医師" ){ echo '医師'; }
+                            elseif( $_POST['qualification'] === "歯科医師" ){ echo '歯科医師'; }
                             elseif( $_POST['qualification'] === "薬剤師" ){ echo '薬剤師'; }
                             elseif( $_POST['qualification'] === "保健師" ){ echo '保健師'; }
                             elseif( $_POST['qualification'] === "助産師" ){ echo '助産師'; }
@@ -412,6 +668,16 @@ function validation($data) {
                             <p><?php if( $_POST['type'] === "賛助会員" | $_POST['type'] === "特別賛助会員" ){echo $_POST['company_url'];} ?></p>
                         </div>
 
+                        <div class="element_wrap">
+                            <label>支払い方法</label>
+                            <p>
+                            <?php if( empty($_POST['payment'])){ echo ''; }
+                                elseif( $_POST['payment'] === "銀行振込" ){ echo '銀行振込'; }
+                                elseif( $_POST['payment'] === "クレジットカード決済" ){ echo 'クレジットカード決済'; }
+                                ?>
+                            </p>
+                        </div>
+
                     <?php else: ?>
                     <?php endif; ?>
 
@@ -454,12 +720,24 @@ function validation($data) {
                         </div>
                         <?php if( empty($_POST['other_students']) ): ?>
                             <?php elseif( $_POST['student'] === "学生 その他" || $_POST['student'] === "大学院 その他"): ?>
-                            <div class="element_wrap">
-                                <label>学生分野</label>
-                                <p><?php echo $_POST['other_students']; ?></p>
-                            </div>
+                                <div class="element_wrap">
+                                    <label>学生分野</label>
+                                    <p><?php echo $_POST['other_students']; ?></p>
+                                </div>
                             <?php else: { echo ''; }?>
                         <?php endif; ?>
+                    <?php else: ?>
+                    <?php endif; ?>
+
+                    <?php  if( !empty($_POST['type']) && $_POST['type'] === "一般会員"): ?>
+                        <div class="element_wrap">
+                            <label>推薦理事名</label>
+                            <p><?php if( $_POST['type'] === "一般会員" ){echo $_POST['recommend_director'];} ?></p>
+                        </div>
+                        <div class="element_wrap">
+                            <label>推薦ID</label>
+                            <p><?php if( $_POST['type'] === "一般会員" ){echo $_POST['recommend_id'];} ?></p>
+                        </div>
                     <?php else: ?>
                     <?php endif; ?>
 
@@ -474,15 +752,50 @@ function validation($data) {
                         else { echo ' '; }
                     ?></p>
 
+                    <p style="display: none"><?php 
+                        if($_POST['agree_student']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+                    
+                    <p style="display: none"><?php 
+                        if($_POST['agree_special']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+
+                    <p style="display: none"><?php 
+                        if($_POST['agree_usual']){ echo '同意'; }
+                        else { echo ' '; }
+                    ?></p>
+
+
                     <div class="submit-flex">
                         <div class="button">
                             <input class="btn_back" type="button" name="btn_back" value="戻る" onclick="history.back()">
                         </div>
                         <div class="btn_submit b2">
-                            <input type="submit" name="btn_submit" value="送信する">
+                            <?php  if( !empty($_POST['type']) && $_POST['type'] === "正会員A"): ?>
+                                <input id="mybtn1" type="submit" name="btn_submit" value="送信する">
+                                <script>
+                                    let 送信する = document.getElementById('mybtn1');
+                                    送信する.addEventListener('click', () => {
+                                        open('https://univa.cc/hdk9FC');
+                                    });
+                                </script>
+                            <?php elseif( !empty($_POST['type']) && $_POST['type'] === "正会員B"): ?>
+                                <input id="mybtn2" type="submit" name="btn_submit" value="送信する">
+                                <script>
+                                    let 送信する = document.getElementById('mybtn2');
+                                    送信する.addEventListener('click', () => {
+                                        open('https://univa.cc/Gb-muK');
+                                    });
+                                </script>
+                            <?php else: ?>
+                                <input type="submit" name="btn_submit" value="送信する">
+                            <?php endif; ?>
                         </div>
                     </div>
 
+                    <input type="hidden" name="time" value="<?php echo date("Y/m/d H:i:s") ?>">
                     <input type="hidden" name="your_name" value="<?php echo $_POST['your_name']; ?>">
                     <input type="hidden" name="hurigana" value="<?php echo $_POST['hurigana']; ?>">
                     <input type="hidden" name="email" value="<?php echo $_POST['email']; ?>">
@@ -511,9 +824,15 @@ function validation($data) {
                     <input type="hidden" name="company_address" value="<?php echo $_POST['company_address']; ?>">
                     <input type="hidden" name="manager" value="<?php echo $_POST['manager']; ?>">
                     <input type="hidden" name="company_url" value="<?php echo $_POST['company_url']; ?>">
+                    <input type="hidden" name="payment" value="<?php if( empty($_POST['payment'])){ echo ''; } elseif( !empty($_POST['payment'] === "選択してください") ){ echo "";} else { echo $_POST['payment']; }?>">
+                    <input type="hidden" name="recommend_director" value="<?php echo $_POST['recommend_director']; ?>">
+                    <input type="hidden" name="recommend_id" value="<?php echo $_POST['recommend_id']; ?>">
 
                     <input type="hidden" name="agree_1" value="<?php if( empty($_POST['agree_1'])){ echo ''; }else { echo $_POST['agree_1']; }?>">
                     <input type="hidden" name="agree_2" value="<?php if( empty($_POST['agree_2'])){ echo ''; }else { echo $_POST['agree_2']; }?>">
+                    <input type="hidden" name="agree_student" value="<?php if( empty($_POST['agree_student'])){ echo ''; }else { echo $_POST['agree_student']; }?>">
+                    <input type="hidden" name="agree_special" value="<?php if( empty($_POST['agree_special'])){ echo ''; }else { echo $_POST['agree_special']; }?>">
+                    <input type="hidden" name="agree_usual" value="<?php if( empty($_POST['agree_usual'])){ echo ''; }else { echo $_POST['agree_usual']; }?>">
                 </form>
 
             </div>
@@ -522,7 +841,8 @@ function validation($data) {
 
 </main>
 
-    <!-- ここまで確認ページが入る -->
+
+<!-- ここまで確認ページが入る -->
 
     <?php elseif( $page_flag === 2 ): ?>
     <?php get_header(); ?>
@@ -553,7 +873,8 @@ function validation($data) {
         </div>
     </section>
 
-    <!-- ここに問い合わせページが入る -->
+
+<!-- ここに問い合わせページが入る -->
 
 <?php else: ?>    
 
@@ -671,6 +992,8 @@ function validation($data) {
                     </div>
                     <select class="select scroll" name="qualification">
                         <option vallue="選択してください" style="color:#A1A1A1;" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "選択してください" ){ echo 'selected'; } ?> >選択してください</option>
+                        <option value="医師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "医師" ){ echo 'selected'; } ?>>医師</option>
+                        <option value="歯科医師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "歯科医師" ){ echo 'selected'; } ?>>歯科医師</option>
                         <option value="薬剤師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "薬剤師" ){ echo 'selected'; } ?>>薬剤師</option>
                         <option value="保健師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "保健師" ){ echo 'selected'; } ?>>保健師</option>
                         <option value="助産師" <?php if( !empty($_POST['qualification']) && $_POST['qualification'] === "助産師" ){ echo 'selected'; } ?>>助産師</option>
@@ -787,7 +1110,7 @@ function validation($data) {
                      <!-- [賛助会員][特別賛助会員] -->
                     <div class="target hidden">
 
-                    <div class="label-flex up">
+                        <div class="label-flex up">
                             <label for="">団体、企業</label>
                             <p>必須</p>
                         </div>
@@ -835,8 +1158,8 @@ function validation($data) {
                         </div>
                     
                         <div class="label-flex">
-                        <label for="">企業名</label>
-                        <p>必須</p>
+                            <label for="">企業名</label>
+                            <p>必須</p>
                         </div>
                         <div class="flex-item">
                             <p>
@@ -874,6 +1197,20 @@ function validation($data) {
                             </p>
                         </div>    
 
+                        <div class="label-flex up">
+                            <label for="">支払い方法</label>
+                        </div>
+                        <select name="payment" class="select">
+                            <option vallue="" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "選択してください" ){ echo 'selected'; } ?>>選択してください</option>
+                            <option value="銀行振込" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "銀行振込" ){ echo 'selected'; } ?>>銀行振込</option>
+                            <option value="クレジットカード決済" <?php if( !empty($_POST['payment']) && $_POST['payment'] === "クレジットカード決済" ){ echo 'selected'; } ?>>クレジットカード決済</option>
+                        </select>
+
+
+                        <div class="agree">
+                            <input type="checkbox" name="agree_special" value="同意" <?php if( !empty($clean['agree_special']) && $clean['agree_special'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">入会にあたり審査がございます。<br>審査結果は申し込み完了後に担当者よりご連絡致します。</label>
+                        </div>
 
                     </div>
 
@@ -933,6 +1270,8 @@ function validation($data) {
                         </div>
                         <select class="select scroll" name="specialty">
                             <option vallue="選択してください" <?php if( !empty($_POST['specialty']) ){ echo ''; } ?> disabled selected style="display:none;color: #A1A1A1;">選択してください</option>
+                            <option value="医師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "医師" ){ echo 'selected'; } ?>>医師</option>
+                            <option value="歯科医師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "歯科医師" ){ echo 'selected'; } ?>>歯科医師</option>
                             <option value="薬剤師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "薬剤師" ){ echo 'selected'; } ?>>薬剤師</option>
                             <option value="保健師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "保健師" ){ echo 'selected'; } ?>>保健師</option>
                             <option value="助産師" <?php if( !empty($_POST['specialty']) && $_POST['specialty'] === "助産師" ){ echo 'selected'; } ?>>助産師</option>
@@ -1022,8 +1361,38 @@ function validation($data) {
                             </p>
                         </div>
 
+                        <div class="agree">
+                            <input type="checkbox" name="agree_student" value="同意" <?php if( !empty($clean['agree_student']) && $clean['agree_student'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">学生証の提出が必須になります。<br class="sp">申込完了後に公式LINEに送付をお願い致します。</label>
+                        </div>
+
                     </div>
 
+                    <!-- 一般会員 -->
+                    <div class="target hidden">
+                        <div class="label-flex up">
+                            <label for="">推薦理事名</label>
+                            <p>必須</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="text" name="recommend_director" value="<?php if( !empty($_POST['recommend_director']) ){ echo $_POST['recommend_director']; } ?>" placeholder="">
+                            </p>
+                        </div>
+                        <div class="label-flex up">
+                            <label for="">推薦ID</label>
+                            <p class="as">※任意</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="text" name="recommend_id" value="<?php if( !empty($_POST['recommend_id']) ){ echo $_POST['recommend_id']; } ?>" placeholder="">
+                            </p>
+                        </div>
+                        <div class="agree">
+                            <input type="checkbox" name="agree_usual" value="同意" <?php if( !empty($clean['agree_usual']) && $clean['agree_usual'] === "1" ){ echo 'checked'; } ?>>
+                            <label for="agreement">入会にあたり審査がございます。<br>審査結果は申し込み完了後に担当者よりご連絡致します。</label>
+                        </div>
+                    </div>
 
                     <div class="agree">
                         <input type="checkbox" name="agree_1" value="同意" <?php if( !empty($clean['agree_1']) && $clean['agree_1'] === "1" ){ echo 'checked'; } ?>>
@@ -1077,7 +1446,12 @@ function validation($data) {
                             target.classList.remove('hidden');
                         </script>
                     <?php endif; ?>
-
+                    <?php if( !empty($_POST['type']) && $_POST['type'] === "一般会員" ): ?>
+                        <script>
+                            var target = document.getElementsByClassName("target")[4];
+                            target.classList.remove('hidden');
+                        </script>
+                    <?php endif; ?>
                 </form>
 
         </div>
