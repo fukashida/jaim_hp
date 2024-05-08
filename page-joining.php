@@ -44,7 +44,6 @@ if( !empty($_POST['btn_confirm']) ) {
 
 	$page_flag = 2;
     
-
     // 変数とタイムゾーンを初期化
     $header = null;
     $auto_reply_subject = null;
@@ -105,7 +104,6 @@ if( !empty($_POST['btn_confirm']) ) {
         $response_data = json_decode($response_json);
         var_dump($response_data);
     }
-
 
     // ヘッダー情報を設定
     $header = "MIME-Version: 1.0\n";
@@ -322,20 +320,6 @@ if( !empty($_POST['btn_confirm']) ) {
 
     // メール送信
     mb_send_mail( $_POST['email'], $auto_reply_subject, $auto_reply_text, $header);
-
-
-    // リダイレクトの多重送信防止ここから
-
-    // POSTで呼ばれた
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // フォームが送信された時の処理を行う
-
-    // 現在のページにGETリダイレクトをかける
-    header("Location: " . $_SERVER['REQUEST_URI']);
-    exit;
-    }
-
-    // リダイレクトの多重送信防止ここまで
 
 
     } else {
@@ -773,24 +757,21 @@ function validation($data) {
                             <input class="btn_back" type="button" name="btn_back" value="戻る" onclick="history.back()">
                         </div>
                         <div class="btn_submit b2">
+                            <input id="btn_submit" type="submit" name="btn_submit" value="送信する">
                             <?php  if( !empty($_POST['type']) && $_POST['type'] === "正会員A"): ?>
-                                <input id="mybtn1" type="submit" name="btn_submit" value="送信する">
                                 <script>
-                                    let 送信する = document.getElementById('mybtn1');
+                                    let 送信する = document.getElementById('btn_submit');
                                     送信する.addEventListener('click', () => {
                                         open('https://univa.cc/hdk9FC');
                                     });
                                 </script>
                             <?php elseif( !empty($_POST['type']) && $_POST['type'] === "正会員B"): ?>
-                                <input id="mybtn2" type="submit" name="btn_submit" value="送信する">
                                 <script>
-                                    let 送信する = document.getElementById('mybtn2');
+                                    let 送信する = document.getElementById('btn_submit');
                                     送信する.addEventListener('click', () => {
                                         open('https://univa.cc/Gb-muK');
                                     });
                                 </script>
-                            <?php else: ?>
-                                <input type="submit" name="btn_submit" value="送信する">
                             <?php endif; ?>
                         </div>
                     </div>
