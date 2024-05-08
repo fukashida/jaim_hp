@@ -125,7 +125,7 @@ if( !empty($_POST['btn_confirm']) ) {
     $auto_reply_text .=  "以下の内容でお申し込みを受け付けいたしました。\n";
     $auto_reply_text .=  "\n";
     $auto_reply_text .=  "━━━━━━□■□　お申し込み内容　□■□━━━━━━\n";
-    $auto_reply_text .=  "お問い合わせ日時：" . date("Y-m-d H:i") . "\n";
+    $auto_reply_text .=  "お申し込み日時：" . date("Y-m-d H:i") . "\n";
     $auto_reply_text .= "氏名：" . $_POST['your_name'] . "\n";
     $auto_reply_text .= "フリガナ：" . $_POST['hurigana'] . "\n";
     $auto_reply_text .= "メールアドレス：" . $_POST['email'] . "\n";
