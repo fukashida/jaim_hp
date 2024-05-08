@@ -311,13 +311,13 @@ if( !empty($_POST['btn_confirm']) ) {
         }
     $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 
-    $auto_reply_text .= "———————————————————————\n\n";
+    $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
     $auto_reply_text .= "【一般社団法人日本美容内科学会】\n";
     $auto_reply_text .= "住所：〒104-0061　東京都中央区銀座1-12-4 N&E BLD. 7階\n";
     $auto_reply_text .= "TEL：090-3813-7241\n";
     $auto_reply_text .= "メール：ask@jaim2023.com\n";
     $auto_reply_text .= "担当：伊藤　明子\n\n";
-    $auto_reply_text .= "———————————————————————\n";
+    $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━\n";
 
 
     // メール送信
