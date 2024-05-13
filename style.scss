@@ -1020,6 +1020,15 @@
                                             top: 15%;
                                         }
                                     }
+                                    &.lineheight{
+                                        line-height: 1.5;
+                                        &::before{
+                                            top: 10px;
+                                            @include pc(sp){
+                                                top: 9px;
+                                            }    
+                                        }
+                                    }
                                 }
                             }
                         }

@@ -1055,6 +1055,17 @@ main.guidance .about .container .sub-container .box ul li::before {
 main.guidance .about .container .sub-container .box ul li:nth-child(4)::before {
   top: 15%;
 }
+main.guidance .about .container .sub-container .box ul li.lineheight {
+  line-height: 1.5;
+}
+main.guidance .about .container .sub-container .box ul li.lineheight::before {
+  top: 10px;
+}
+@media screen and (max-width:540px) {
+  main.guidance .about .container .sub-container .box ul li.lineheight::before {
+    top: 9px;
+  }
+}
 main.guidance .about .container .sub-container .flex {
   display: flex;
   align-items: center;
