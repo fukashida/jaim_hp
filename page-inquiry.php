@@ -221,11 +221,10 @@ function validation($data) {
                     <div class="box">
                         <div class="line">
                             <p class="std7">お問い合わせについて</p>
-                            <p>必要事項をご入力いただき<br class="sp">[確認]ボタンをクリックし、<br>
-                            内容にお間違いが無ければ<br class="sp">[送信]ボタンをクリックしてください。<br><br class="sp">
-                            お問い合わせ内容を確認次第<br class="sp">ご返答いたします。</p>
-                            <p class="up">
-                            お急ぎの方は、公式LINEにてお問合せください</p>
+                            <p>お問い合わせは、<br class="sp">下記公式LINEにお願いいたします。<br><br class="sp">
+                            お問い合わせフォームからですと<br>
+                            返信にお時間いただきますので、<br class="sp">ご了承ください。</p>
+                            <a target="_blank" class="button inq" href="https://lin.ee/tMc4HRi">公式LINEはこちら</a>
                         </div>
                     </div>
                     <h2 class="std7">お問い合わせフォーム</h2>

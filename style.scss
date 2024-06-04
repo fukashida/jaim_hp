@@ -556,6 +556,13 @@
                 border-left: 11px solid white;
             }
         }
+        &.inq{
+            margin-top: 50px;
+            @include pc(sp){
+                width: 100%;
+                margin-top: 30px;
+            }
+        }
     }
 
     // メイン

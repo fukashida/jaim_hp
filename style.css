@@ -568,6 +568,15 @@ a.button::before {
     border-left: 11px solid white;
   }
 }
+a.button.inq {
+  margin-top: 50px;
+}
+@media screen and (max-width:540px) {
+  a.button.inq {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
 
 main {
   background: #E9F3F5;
