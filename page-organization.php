@@ -72,7 +72,7 @@
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf06.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>坪内利江子　</span>Tsubouchi Rieko</p>
+                        <p class="std7"><span>坪内 利江子　</span>Tsubouchi Rieko</p>
                         <p class="std5">銀座スキンクリニック 院長</p>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf08.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>堀田和亮　</span>Hotta Kazuaki</p>
+                        <p class="std7"><span>堀田 和亮　</span>Hotta Kazuaki</p>
                         <p class="std5">医療法人社団 <br class="sp">SMILE LAND BIANCA CLINIC 理事⻑</p>
                     </div>
                 </div>
@@ -125,28 +125,28 @@
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf15.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>小林弘幸　</span>Kobayashi Hiroyuki</p>
+                        <p class="std7"><span>小林 弘幸　</span>Kobayashi Hiroyuki</p>
                         <p class="std5" style="line-height:1.5;">順天堂大学医学部 病院管理学 総合診療科 教授<br>東京都医師会 医療支援担当理事</p>
                     </div>
                 </div>
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf16.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>松尾通　</span>Matsuo Toru</p>
+                        <p class="std7"><span>松尾 通　</span>Matsuo Toru</p>
                         <p class="std5" style="line-height:1.5;">日本アンチエイジング歯科学会 会長<br>日本歯科ＴＣ協会 理事長</p>
                     </div>
                 </div>
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf13.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>森下竜一　</span>Morishita Ryuichi</p>
+                        <p class="std7"><span>森下 竜一　</span>Morishita Ryuichi</p>
                         <p class="std5">大阪大学大学院医学系研究科<br class="sp">臨床遺伝子治療学寄附講座 教授</p>
                     </div>
                 </div>
                 <div class="flex">
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf14.webp" alt="">
                     <div class="item">
-                        <p class="std7"><span>山田秀和　</span>Yamada Hidekazu</p>
+                        <p class="std7"><span>山田 秀和　</span>Yamada Hidekazu</p>
                         <p class="std5">日本抗加齢医学会理事⻑、<br class="sp">近畿大学医学部 客員教授</p>
                     </div>
                 </div>
