@@ -53,7 +53,7 @@ if( !empty($_POST['btn_confirm']) ) {
     date_default_timezone_set('Asia/Tokyo');
 
     if(count($_POST)){
-        $url = 'https://script.google.com/macros/s/AKfycbyZWlu7BItkNn2dXTC0eTzNe51lqAp3CkceJlw7IcrcjTn_Ii7x0Pq3_1Og7ynKd2PWIg/exec';
+        $url = 'https://script.google.com/macros/s/AKfycbx5WaNOLgB-NB2HuDp33cKYdCkAwa6wJkO-kD2KpxRafRhH4jqpEiOQktbfswvKo7sbcg/exec';
         $data = array(
             'time' => date("Y/m/d H:i:s"),
             'your_name' => $_POST['your_name'],
