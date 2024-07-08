@@ -60,6 +60,7 @@ if( !empty($_POST['btn_confirm']) ) {
             'hurigana' => $_POST['hurigana'],
             'email' => $_POST['email'],
             'tel' => $_POST['tel'],
+            'your_postcode' => $_POST['your_postcode'],
             'your_address' => $_POST['your_address'],
             'gender' => $_POST['gender'],
             'birth' => $_POST['birth'],
@@ -68,6 +69,7 @@ if( !empty($_POST['btn_confirm']) ) {
             'number' => $_POST['number'],
             'acquisition' => $_POST['acquisition'],
             'corporate_name' => $_POST['corporate_name'],
+            'postcode' => $_POST['postcode'],
             'address' => $_POST['address'],
             'clinic_tel' => $_POST['clinic_tel'],
             'destination' => $_POST['destination'],
@@ -128,6 +130,7 @@ if( !empty($_POST['btn_confirm']) ) {
     $auto_reply_text .= "フリガナ：" . $_POST['hurigana'] . "\n";
     $auto_reply_text .= "メールアドレス：" . $_POST['email'] . "\n";
     $auto_reply_text .= "電話番号：" . $_POST['tel'] . "\n";
+    $auto_reply_text .= "郵便番号：" . $_POST['your_postcode'] . "\n";
     $auto_reply_text .= "住所：" . $_POST['your_address'] . "\n";
     if( $_POST['gender'] === "男性" ){
     $auto_reply_text .= "性別：男性\n";
@@ -180,6 +183,7 @@ if( !empty($_POST['btn_confirm']) ) {
     $auto_reply_text .= "免許番号：" . $_POST['number'] . "\n";
     $auto_reply_text .= "取得年月日：" . $_POST['acquisition'] . "\n";
     $auto_reply_text .= "所属施設名（病院、クリニック、会社、学校等）：" . $_POST['corporate_name'] . "\n";
+    $auto_reply_text .= "郵便番号（病院、クリニック、会社、学校等）：" . $_POST['postcode'] . "\n";
     $auto_reply_text .= "住所（病院、クリニック、会社、学校等）：" . $_POST['address'] . "\n";
     $auto_reply_text .= "電話番号（病院、クリニック、会社、学校等）：" . $_POST['clinic_tel'] . "\n";
     if( $_POST['destination'] === "自宅" ){ $auto_reply_text .= "連絡先・書類送付先：自宅\n"; }
@@ -500,6 +504,10 @@ function validation($data) {
                         <p><?php echo $_POST['tel']; ?></p>
                     </div>
                     <div class="element_wrap">
+                        <label>郵便番号</label>
+                        <p><?php echo $_POST['your_postcode']; ?></p>
+                    </div>
+                    <div class="element_wrap">
                         <label>ご住所</label>
                         <p><?php echo $_POST['your_address']; ?></p>
                     </div>
@@ -584,6 +592,10 @@ function validation($data) {
                     <div class="element_wrap">
                         <label>所属施設名<br class="sp">( 病院、クリニック、会社、学校等 )</label>
                         <p><?php echo $_POST['corporate_name']; ?></p>
+                    </div>
+                    <div class="element_wrap">
+                        <label>郵便番号<br class="sp">( 病院、クリニック、会社、学校等 )</label>
+                        <p><?php echo $_POST['postcode']; ?></p>
                     </div>
                     <div class="element_wrap">
                         <label>住所<br class="sp">( 病院、クリニック、会社、学校等 )</label>
@@ -781,6 +793,7 @@ function validation($data) {
                     <input type="hidden" name="hurigana" value="<?php echo $_POST['hurigana']; ?>">
                     <input type="hidden" name="email" value="<?php echo $_POST['email']; ?>">
                     <input type="hidden" name="tel" value="<?php echo $_POST['tel']; ?>">
+                    <input type="hidden" name="your_postcode" value="<?php echo $_POST['your_postcode']; ?>">
                     <input type="hidden" name="your_address" value="<?php echo $_POST['your_address']; ?>">
                     <input type="hidden" name="gender" value="<?php if( empty($_POST['gender'])){ echo ''; } elseif( !empty($_POST['gender'] === "選択してください") ){ echo "";} else { echo $_POST['gender']; }?>">
                     <input type="hidden" name="birth" value="<?php echo $_POST['birth']; ?>">
@@ -789,6 +802,7 @@ function validation($data) {
                     <input type="hidden" name="number" value="<?php echo $_POST['number']; ?>">
                     <input type="hidden" name="acquisition" value="<?php echo $_POST['acquisition']; ?>">
                     <input type="hidden" name="corporate_name" value="<?php echo $_POST['corporate_name']; ?>">
+                    <input type="hidden" name="postcode" value="<?php echo $_POST['postcode']; ?>">
                     <input type="hidden" name="address" value="<?php echo $_POST['address']; ?>">
                     <input type="hidden" name="clinic_tel" value="<?php echo $_POST['clinic_tel']; ?>">
                     <input type="hidden" name="destination" value="<?php if( empty($_POST['destination'])){ echo ''; }else { echo $_POST['destination']; }?>">
@@ -941,6 +955,15 @@ function validation($data) {
                     </div>
 
                     <div class="label-flex">
+                        <label for="">郵便番号</label>
+                    </div>
+                    <div class="flex-item">
+                        <p>
+                            <input type="text" name="your_postcode" value="<?php if( !empty($_POST['your_postcode']) ){ echo $_POST['your_postcode']; } ?>" placeholder="000-0000">
+                        </p>
+                    </div>
+                    
+                    <div class="label-flex">
                         <label for="">住所</label>
                     </div>
                     <div class="flex-item">
@@ -1043,6 +1066,15 @@ function validation($data) {
                     <div class="flex-item">
                         <p>
                             <input type="text" name="corporate_name" value="<?php if( !empty($_POST['corporate_name']) ){ echo $_POST['corporate_name']; } ?>" placeholder="">
+                        </p>
+                    </div>
+
+                    <div class="label-flex">
+                        <label for="">郵便番号（病院、クリニック、会社、学校等）</label>
+                    </div>
+                    <div class="flex-item">
+                        <p>
+                            <input type="text" name="postcode" value="<?php if( !empty($_POST['postcode']) ){ echo $_POST['postcode']; } ?>" placeholder="000-0000">
                         </p>
                     </div>
 
