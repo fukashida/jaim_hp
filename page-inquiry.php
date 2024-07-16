@@ -221,9 +221,11 @@ function validation($data) {
                     <div class="box">
                         <div class="line">
                             <p class="std7">お問い合わせについて</p>
-                            <p>お問い合わせは、<br class="sp">下記公式LINEにお願いいたします。<br><br class="sp">
-                            お問い合わせフォームからですと<br>
-                            返信にお時間いただきますので、<br class="sp">ご了承ください。</p>
+                            <p>お問い合わせは、<br class="sp">公式LINEよりお願いします。<br>
+                            <br>
+                            下記フォームからのお問合せは、<br class="sp">返信にお時間をいただく場合がございます。<br>
+                            ご了承ください。
+                            </p>
                             <a target="_blank" class="button inq" href="https://lin.ee/tMc4HRi">公式LINEはこちら</a>
                         </div>
                     </div>
