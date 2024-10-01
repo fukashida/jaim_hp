@@ -180,7 +180,7 @@ if( !empty($_POST['btn_confirm']) ) {
     else {
         $auto_reply_text .= "国家資格の免許の種類：\n";
     }
-    $auto_reply_text .= "免許番号：" . $_POST['number'] . "\n";
+    $auto_reply_text .= "国家資格免許番号：" . $_POST['number'] . "\n";
     $auto_reply_text .= "取得年月日：" . $_POST['acquisition'] . "\n";
     $auto_reply_text .= "所属施設名（病院、クリニック、会社、学校等）：" . $_POST['corporate_name'] . "\n";
     $auto_reply_text .= "郵便番号（病院、クリニック、会社、学校等）：" . $_POST['postcode'] . "\n";
@@ -376,16 +376,21 @@ function validation($data) {
 		$error[] = "「生年月日」は必ず入力してください。";
 	}
 
-    // 免許番号のバリデーション
+    // 国家資格免許番号のバリデーション
 	if( empty($data['number']) ) {
-		$error[] = "「免許番号」は必ず入力してください。";
+		$error[] = "「国家資格免許番号」は必ず入力してください。";
 	}  elseif( !preg_match( '/^[0-9]+$/', $data['number']) ) {
-		$error[] = "「免許番号」は半角数字で入力してください。";
+		$error[] = "「国家資格免許番号」は半角数字で入力してください。";
 	}
 
     // 取得年月日のバリデーション
     if( empty($data['acquisition']) ) {
 		$error[] = "「取得年月日」は必ず入力してください。";
+	}
+
+    //所属施設名( 病院、クリニック、会社、学校等 )のバリデーション
+    if( empty($data['corporate_name']) ) {
+		$error[] = "「所属施設名」は必ず入力してください。";
 	}
 
 	// 電話番号（病院、クリニック、会社、学校等）のバリデーション
@@ -603,7 +608,7 @@ function validation($data) {
                     <?php endif; ?>
 
                     <div class="element_wrap">
-                        <label>免許番号</label>
+                        <label>国家資格免許番号</label>
                         <p><?php echo $_POST['number']; ?></p>
                     </div>
                     <div class="element_wrap">
@@ -1070,9 +1075,8 @@ function validation($data) {
                     </div>
 
                     <div class="label-flex">
-                        <label for="">免許番号</label>
+                        <label for="">国家資格免許番号</label>
                         <p>必須</p>
-                        <p class="as">※国家資格保有者のみ</p>
                     </div>
                     <div class="flex-item">
                         <p>
@@ -1092,6 +1096,7 @@ function validation($data) {
 
                     <div class="label-flex">
                         <label for="">所属施設名<br class="sp">( 病院、クリニック、会社、学校等 )</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
