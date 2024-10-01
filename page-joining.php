@@ -1071,8 +1071,8 @@ function validation($data) {
 
                     <div class="label-flex">
                         <label for="">免許番号</label>
-                        <p class="as">※国家資格保有者のみ</p>
                         <p>必須</p>
+                        <p class="as">※国家資格保有者のみ</p>
                     </div>
                     <div class="flex-item">
                         <p>
