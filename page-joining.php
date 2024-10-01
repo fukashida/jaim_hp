@@ -258,7 +258,7 @@ if( !empty($_POST['btn_confirm']) ) {
         elseif( $_POST['payment'] === "クレジットカード決済" ){ $auto_reply_text .= "支払い方法：クレジットカード決済\n"; }
         else {
             $auto_reply_text .= "支払い方法：\n";
-            }
+        }
     }
     elseif( $_POST['type'] === "特別賛助会員" ){ 
         $auto_reply_text .= "会員区分：特別賛助会員\n"; 
@@ -355,13 +355,37 @@ function validation($data) {
 	}
 
 	// 電話番号のバリデーション
-    if( !empty($data['tel']) && !preg_match( '/\d{2,4}-\d{2,4}-\d{4}/' , $data['tel']) ) {
+	if( empty($data['tel']) ) {
+		$error[] = "「電話番号」は必ず入力してください。";
+	}  elseif( !preg_match( '/\d{2,4}-\d{2,4}-\d{4}/', $data['tel']) ) {
 		$error[] = "「電話番号」はハイフンを含めて入力してください。";
 	}
 
-	// 免許番号のバリデーション
-    if( !empty($data['number']) && !preg_match( '/^[0-9]+$/' , $data['number']) ) {
+    // 郵便番号のバリデーション
+    if( empty($data['your_postcode']) ) {
+		$error[] = "「郵便番号」は必ず入力してください。";
+	}
+
+    // 住所のバリデーション
+    if( empty($data['your_address']) ) {
+		$error[] = "「住所」は必ず入力してください。";
+	}
+
+    // 生年月日のバリデーション
+    if( empty($data['birth']) ) {
+		$error[] = "「生年月日」は必ず入力してください。";
+	}
+
+    // 免許番号のバリデーション
+	if( empty($data['number']) ) {
+		$error[] = "「免許番号」は必ず入力してください。";
+	}  elseif( !preg_match( '/^[0-9]+$/', $data['number']) ) {
 		$error[] = "「免許番号」は半角数字で入力してください。";
+	}
+
+    // 取得年月日のバリデーション
+    if( empty($data['acquisition']) ) {
+		$error[] = "「取得年月日」は必ず入力してください。";
 	}
 
 	// 電話番号（病院、クリニック、会社、学校等）のバリデーション
@@ -947,6 +971,7 @@ function validation($data) {
 
                     <div class="label-flex">
                         <label for="">電話番号</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
@@ -956,6 +981,7 @@ function validation($data) {
 
                     <div class="label-flex">
                         <label for="">郵便番号</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
@@ -965,6 +991,7 @@ function validation($data) {
                     
                     <div class="label-flex">
                         <label for="">住所</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
@@ -983,6 +1010,7 @@ function validation($data) {
 
                     <div class="label-flex up">
                         <label for="">生年月日</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p class="birth">
@@ -1044,6 +1072,7 @@ function validation($data) {
                     <div class="label-flex">
                         <label for="">免許番号</label>
                         <p class="as">※国家資格保有者のみ</p>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
@@ -1053,6 +1082,7 @@ function validation($data) {
 
                     <div class="label-flex up">
                         <label for="">取得年月日</label>
+                        <p>必須</p>
                     </div>
                     <div class="flex-item">
                         <p>
