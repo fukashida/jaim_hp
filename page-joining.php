@@ -53,7 +53,7 @@ if( !empty($_POST['btn_confirm']) ) {
     date_default_timezone_set('Asia/Tokyo');
 
     if(count($_POST)){
-        $url = 'https://script.google.com/macros/s/AKfycbx5WaNOLgB-NB2HuDp33cKYdCkAwa6wJkO-kD2KpxRafRhH4jqpEiOQktbfswvKo7sbcg/exec';
+        $url = 'https://script.google.com/macros/s/AKfycbxn0c00QsQ9FxvDaaYtkwpxZrV5wx_2XGrSUHvQQbofdCKPhBMU3osXwWyR5EpUOaeUHg/exec';
         $data = array(
             'time' => date("Y/m/d H:i:s"),
             'your_name' => $_POST['your_name'],
@@ -416,7 +416,7 @@ function validation($data) {
     // 国家資格免許番号のバリデーション[正会員A]
 	if( empty($data['a_number']) && $_POST['type'] === "正会員A" ) {
 		$error[] = "「国家資格免許番号」は必ず入力してください。";
-	}  elseif( !preg_match( '/^[0-9]+$/', $data['a_number'])) {
+	}  elseif( !preg_match( '/^[0-9]+$/', $data['a_number']) && $_POST['type'] === "正会員A" ) {
 		$error[] = "「国家資格免許番号」は半角数字で入力してください。";
 	}
 
@@ -433,7 +433,7 @@ function validation($data) {
     // 国家資格免許番号のバリデーション[正会員B]
 	if( empty($data['b_number'])  && $_POST['type'] === "正会員B" ) {
 		$error[] = "「国家資格免許番号」は必ず入力してください。";
-	}  elseif( !preg_match( '/^[0-9]+$/', $data['b_number'])) {
+	}  elseif( !preg_match( '/^[0-9]+$/', $data['b_number']) && $_POST['type'] === "正会員B") {
 		$error[] = "「国家資格免許番号」は半角数字で入力してください。";
 	}
 
