@@ -66,7 +66,6 @@ if( !empty($_POST['btn_confirm']) ) {
             'birth' => $_POST['birth'],
             'qualification' => $_POST['qualification'],
             'others' => $_POST['others'],
-            'acquisition' => $_POST['acquisition'],
             'corporate_name' => $_POST['corporate_name'],
             'postcode' => $_POST['postcode'],
             'address' => $_POST['address'],
@@ -76,9 +75,11 @@ if( !empty($_POST['btn_confirm']) ) {
             'field' => $_POST['field'],
             'other_field' => $_POST['other_field'],
             'a_number' => $_POST['a_number'],
+            'a_acquisition' => $_POST['a_acquisition'],
             'specialty' => $_POST['specialty'],
             'other_specialty' => $_POST['other_specialty'],
             'b_number' => $_POST['b_number'],
+            'b_acquisition' => $_POST['b_acquisition'],
             'student' => $_POST['student'],
             'other_students' => $_POST['other_students'],
             'organization' => $_POST['organization'],
@@ -181,7 +182,6 @@ if( !empty($_POST['btn_confirm']) ) {
     else {
         $auto_reply_text .= "国家資格の免許の種類：\n";
     }
-    $auto_reply_text .= "取得年月日：" . $_POST['acquisition'] . "\n";
     $auto_reply_text .= "所属施設名（病院、クリニック、会社、学校等）：" . $_POST['corporate_name'] . "\n";
     $auto_reply_text .= "郵便番号（病院、クリニック、会社、学校等）：" . $_POST['postcode'] . "\n";
     $auto_reply_text .= "住所（病院、クリニック、会社、学校等）：" . $_POST['address'] . "\n";
@@ -196,13 +196,14 @@ if( !empty($_POST['btn_confirm']) ) {
         $auto_reply_text .= "医師、歯科医師（基本分野）：" . $_POST['field'] . "\n";
         $auto_reply_text .= "医師、歯科医師（基本分野ならびに専門領域にない分野）：" . $_POST['other_field'] . "\n";
         $auto_reply_text .= "国家資格免許番号：" . $_POST['a_number'] . "\n";
+        $auto_reply_text .= "取得年月日：" . $_POST['a_acquisition'] . "\n";
     }
     elseif( $_POST['type'] === "正会員B" ){ 
         $auto_reply_text .= "会員区分：正会員B\n"; 
         $auto_reply_text .= "医療従事者（専門）：" . $_POST['specialty'] . "\n";
         $auto_reply_text .= "医療従事者（その他専門）：" . $_POST['other_specialty'] . "\n";
         $auto_reply_text .= "国家資格免許番号：" . $_POST['b_number'] . "\n";
-
+        $auto_reply_text .= "取得年月日：" . $_POST['b_acquisition'] . "\n";
     }
     elseif( $_POST['type'] === "一般会員" ){ 
         $auto_reply_text .= "会員区分：一般会員\n"; 
@@ -378,11 +379,6 @@ function validation($data) {
 		$error[] = "「生年月日」は必ず入力してください。";
 	}
 
-    // 取得年月日のバリデーション
-    if( empty($data['acquisition']) ) {
-		$error[] = "「取得年月日」は必ず入力してください。";
-	}
-
     //所属施設名( 病院、クリニック、会社、学校等 )のバリデーション
     if( empty($data['corporate_name']) ) {
 		$error[] = "「所属施設名」は必ず入力してください。";
@@ -420,6 +416,11 @@ function validation($data) {
 		$error[] = "「国家資格免許番号」は半角数字で入力してください。";
 	}
 
+    // 取得年月日のバリデーション[正会員A]
+    if( empty($data['a_acquisition']) && $_POST['type'] === "正会員A" ) {
+        $error[] = "「取得年月日」は必ず入力してください。";
+    }
+
     // 医療従事者(専門)のバリデーション[正会員B]
     if( empty($data['specialty']) && !empty($_POST['type']) && $_POST['type'] === "正会員B") {
         $error[] = "「医療従事者(専門)」は必ず入力してください。";
@@ -436,6 +437,11 @@ function validation($data) {
 	}  elseif( !preg_match( '/^[0-9]+$/', $data['b_number']) && $_POST['type'] === "正会員B") {
 		$error[] = "「国家資格免許番号」は半角数字で入力してください。";
 	}
+
+    // 取得年月日のバリデーション[正会員B]
+    if( empty($data['b_acquisition']) && $_POST['type'] === "正会員B" ) {
+        $error[] = "「取得年月日」は必ず入力してください。";
+    }    
 
     // 学生分野のバリデーション[学生会員]
     if( empty($data['student']) && !empty($_POST['type']) && $_POST['type'] === "学生会員") {
@@ -617,13 +623,6 @@ function validation($data) {
                     <?php endif; ?>
 
                     <div class="element_wrap">
-                        <label>取得年月日</label>
-                        <p><?php 
-                        if( empty($_POST['acquisition'])){ echo ''; }
-                        else {echo $_POST['acquisition']; }
-                        ?></p>
-                    </div>
-                    <div class="element_wrap">
                         <label>所属施設名<br class="sp">( 病院、クリニック、会社、学校等 )</label>
                         <p><?php echo $_POST['corporate_name']; ?></p>
                     </div>
@@ -728,6 +727,13 @@ function validation($data) {
                             <label>国家資格免許番号</label>
                             <p><?php echo $_POST['a_number']; ?></p>
                         </div>
+                        <div class="element_wrap">
+                            <label>取得年月日</label>
+                            <p><?php 
+                            if( empty($_POST['a_acquisition'])){ echo ''; }
+                            else {echo $_POST['a_acquisition']; }
+                            ?></p>
+                        </div>
                     <?php else: ?>
                     <?php endif; ?>
 
@@ -747,6 +753,13 @@ function validation($data) {
                         <div class="element_wrap">
                             <label>国家資格免許番号</label>
                             <p><?php echo $_POST['b_number']; ?></p>
+                        </div>
+                        <div class="element_wrap">
+                            <label>取得年月日</label>
+                            <p><?php 
+                            if( empty($_POST['b_acquisition'])){ echo ''; }
+                            else {echo $_POST['b_acquisition']; }
+                            ?></p>
                         </div>
                     <?php else: ?>
                     <?php endif; ?>
@@ -841,7 +854,6 @@ function validation($data) {
                     <input type="hidden" name="birth" value="<?php echo $_POST['birth']; ?>">
                     <input type="hidden" name="qualification" value="<?php if( empty($_POST['qualification'])){ echo ''; } elseif( !empty($_POST['qualification'] === "選択してください") ){ echo "";} else { echo $_POST['qualification']; }?>">
                     <input type="hidden" name="others" value="<?php if( empty($_POST['qualification'])){ echo ''; } elseif( !empty($_POST['qualification'] === "その他") ){ echo $_POST['others'];} ?>">
-                    <input type="hidden" name="acquisition" value="<?php echo $_POST['acquisition']; ?>">
                     <input type="hidden" name="corporate_name" value="<?php echo $_POST['corporate_name']; ?>">
                     <input type="hidden" name="postcode" value="<?php echo $_POST['postcode']; ?>">
                     <input type="hidden" name="address" value="<?php echo $_POST['address']; ?>">
@@ -851,9 +863,11 @@ function validation($data) {
                     <input type="hidden" name="field" value="<?php if( empty($_POST['field'])){ echo ''; }else { echo $_POST['field']; }?>">
                     <input type="hidden" name="other_field" value="<?php if( empty($_POST['other_field'])){ echo ''; }else { echo $_POST['other_field']; }?>">
                     <input type="hidden" name="a_number" value="<?php echo $_POST['a_number']; ?>">
+                    <input type="hidden" name="a_acquisition" value="<?php echo $_POST['acquisition']; ?>">
                     <input type="hidden" name="specialty" value="<?php if( empty($_POST['specialty'])){ echo ''; }else { echo $_POST['specialty']; }?>">
                     <input type="hidden" name="other_specialty" value="<?php if( empty($_POST['other_specialty'])){ echo ''; }else { echo $_POST['other_specialty']; }?>">
                     <input type="hidden" name="b_number" value="<?php echo $_POST['b_number']; ?>">
+                    <input type="hidden" name="b_acquisition" value="<?php echo $_POST['acquisition']; ?>">
                     <input type="hidden" name="student" value="<?php if( empty($_POST['student'])){ echo ''; }else { echo $_POST['student']; }?>">
                     <input type="hidden" name="other_students" value="<?php echo $_POST['other_students']; ?>">
                     <input type="hidden" name="organization" value="<?php if( empty($_POST['organization'])){ echo ''; }else { echo $_POST['organization']; }?>">
@@ -1088,16 +1102,6 @@ function validation($data) {
                         </p>
                     </div>
 
-                    <div class="label-flex up">
-                        <label for="">取得年月日</label>
-                        <p>必須</p>
-                    </div>
-                    <div class="flex-item">
-                        <p>
-                            <input type="date" name="acquisition" value="<?php if( !empty($_POST['acquisition']) ){ echo $_POST['acquisition']; } ?>" >
-                        </p>
-                    </div>
-
                     <div class="label-flex">
                         <label for="">所属施設名<br class="sp">( 病院、クリニック、会社、学校等 )</label>
                         <p>必須</p>
@@ -1311,16 +1315,25 @@ function validation($data) {
                             </p>
                         </div>
 
-                    <div class="label-flex">
-                        <label for="">国家資格免許番号</label>
-                        <p>必須</p>
-                    </div>
-                    <div class="flex-item">
-                        <p>
-                            <input type="text" name="a_number" value="<?php if( !empty($_POST['a_number']) ){ echo $_POST['a_number']; } ?>" placeholder="">
-                        </p>
-                    </div>
+                        <div class="label-flex">
+                            <label for="">国家資格免許番号</label>
+                            <p>必須</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="text" name="a_number" value="<?php if( !empty($_POST['a_number']) ){ echo $_POST['a_number']; } ?>" placeholder="">
+                            </p>
+                        </div>
 
+                        <div class="label-flex">
+                            <label for="">取得年月日</label>
+                            <p>必須</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="date" name="a_acquisition" value="<?php if( !empty($_POST['a_acquisition']) ){ echo $_POST['a_acquisition']; } ?>" >
+                            </p>
+                        </div>
                     </div>
 
                     <!-- [正会員B] -->
@@ -1384,6 +1397,16 @@ function validation($data) {
                         <div class="flex-item">
                             <p>
                                 <input type="text" name="b_number" value="<?php if( !empty($_POST['b_number']) ){ echo $_POST['b_number']; } ?>" placeholder="">
+                            </p>
+                        </div>
+
+                        <div class="label-flex">
+                            <label for="">取得年月日</label>
+                            <p>必須</p>
+                        </div>
+                        <div class="flex-item">
+                            <p>
+                                <input type="date" name="b_acquisition" value="<?php if( !empty($_POST['b_acquisition']) ){ echo $_POST['b_acquisition']; } ?>" >
                             </p>
                         </div>
                         
