@@ -863,11 +863,11 @@ function validation($data) {
                     <input type="hidden" name="field" value="<?php if( empty($_POST['field'])){ echo ''; }else { echo $_POST['field']; }?>">
                     <input type="hidden" name="other_field" value="<?php if( empty($_POST['other_field'])){ echo ''; }else { echo $_POST['other_field']; }?>">
                     <input type="hidden" name="a_number" value="<?php echo $_POST['a_number']; ?>">
-                    <input type="hidden" name="a_acquisition" value="<?php echo $_POST['acquisition']; ?>">
+                    <input type="hidden" name="a_acquisition" value="<?php echo $_POST['a_acquisition']; ?>">
                     <input type="hidden" name="specialty" value="<?php if( empty($_POST['specialty'])){ echo ''; }else { echo $_POST['specialty']; }?>">
                     <input type="hidden" name="other_specialty" value="<?php if( empty($_POST['other_specialty'])){ echo ''; }else { echo $_POST['other_specialty']; }?>">
                     <input type="hidden" name="b_number" value="<?php echo $_POST['b_number']; ?>">
-                    <input type="hidden" name="b_acquisition" value="<?php echo $_POST['acquisition']; ?>">
+                    <input type="hidden" name="b_acquisition" value="<?php echo $_POST['b_acquisition']; ?>">
                     <input type="hidden" name="student" value="<?php if( empty($_POST['student'])){ echo ''; }else { echo $_POST['student']; }?>">
                     <input type="hidden" name="other_students" value="<?php echo $_POST['other_students']; ?>">
                     <input type="hidden" name="organization" value="<?php if( empty($_POST['organization'])){ echo ''; }else { echo $_POST['organization']; }?>">
