@@ -15,14 +15,14 @@
 $page_flag = 0;
 $clean = array();
 
-$log_file = 'logs/form_data.txt';
+// $log_file = 'logs/form_data.txt';
 
 if( !empty($_POST) ) {
-    $data_to_log = $_POST;
-    $log_entry = "==========\n";
-    $log_entry .= "日時： " . date("Y-m-d H:i:s") . "\n";
-    $log_entry .= "データ：" . "\n" . print_r($_POST, true)."\n";
-    file_put_content($log_file, $log_entry, FILE_APPEND | LOCK_EX);
+    // $data_to_log = $_POST;
+    // $log_entry = "==========\n";
+    // $log_entry .= "日時： " . date("Y-m-d H:i:s") . "\n";
+    // $log_entry .= "データ：" . "\n" . print_r($_POST, true)."\n";
+    // file_put_content($log_file, $log_entry, FILE_APPEND | LOCK_EX);
 	foreach( $_POST as $key => $value ) {
 		$clean[$key] = htmlspecialchars( $value, ENT_QUOTES);
 	}
@@ -31,11 +31,11 @@ if( !empty($_POST) ) {
 if( !empty($_POST['btn_confirm']) ) {
 
     $error = validation($clean);
-    $data_to_log = $_POST;
-    $log_entry = "==========\n";
-    $log_entry .= "日時： " . date("Y-m-d H:i:s") . "\n";
-    $log_entry .= "データ：" . "\n" . print_r($_POST, true)."\n";
-    file_put_content($log_file, $log_entry, FILE_APPEND | LOCK_EX);
+    // $data_to_log = $_POST;
+    // $log_entry = "==========\n";
+    // $log_entry .= "日時： " . date("Y-m-d H:i:s") . "\n";
+    // $log_entry .= "データ：" . "\n" . print_r($_POST, true)."\n";
+    // file_put_content($log_file, $log_entry, FILE_APPEND | LOCK_EX);
 
 	if( empty($error) ) {
 		$page_flag = 1;
