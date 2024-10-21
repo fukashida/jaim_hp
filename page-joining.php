@@ -339,6 +339,15 @@ if( !empty($_POST['btn_confirm']) ) {
     // メール送信
     mb_send_mail( $_POST['email'], $auto_reply_subject, $auto_reply_text, $header);
 
+    // PHPでリダイレクトを実行
+    if (!empty($_POST['type']) && $_POST['type'] === "正会員A") {
+        header('Location: https://univa.cc/hdk9FC');
+        exit; // スクリプトの実行を停止
+    } elseif (!empty($_POST['type']) && $_POST['type'] === "正会員B") {
+        header('Location: https://univa.cc/Gb-muK');
+        exit; // スクリプトの実行を停止
+    }
+
 
     } else {
         $page_flag = 0;
@@ -836,21 +845,6 @@ function validation($data) {
                         </div>
                         <div class="btn_submit b2">
                             <input id="btn_submit" type="submit" name="btn_submit" value="送信する">
-                            <?php  if( !empty($_POST['type']) && $_POST['type'] === "正会員A"): ?>
-                                <script>
-                                    let 送信する = document.getElementById('btn_submit');
-                                    送信する.addEventListener('click', () => {
-                                        open('https://univa.cc/hdk9FC');
-                                    });
-                                </script>
-                            <?php elseif( !empty($_POST['type']) && $_POST['type'] === "正会員B"): ?>
-                                <script>
-                                    let 送信する = document.getElementById('btn_submit');
-                                    送信する.addEventListener('click', () => {
-                                        open('https://univa.cc/Gb-muK');
-                                    });
-                                </script>
-                            <?php endif; ?>
                         </div>
                     </div>
 
