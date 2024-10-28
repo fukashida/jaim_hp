@@ -53,7 +53,7 @@ if( !empty($_POST['btn_confirm']) ) {
 		// セッションの削除
 		unset($_SESSION['page']);
 
-	$page_flag = 2;
+	  $page_flag = 2;
     
     // 変数とタイムゾーンを初期化
     $header = null;
@@ -62,6 +62,9 @@ if( !empty($_POST['btn_confirm']) ) {
     $admin_reply_subject = null;
     $admin_reply_text = null;
     date_default_timezone_set('Asia/Tokyo');
+
+    mb_language("Japanese");
+    mb_internal_encoding("UTF-8");
 
     if(count($_POST)){
         $url = 'https://script.google.com/macros/s/AKfycbxn0c00QsQ9FxvDaaYtkwpxZrV5wx_2XGrSUHvQQbofdCKPhBMU3osXwWyR5EpUOaeUHg/exec';
@@ -120,10 +123,18 @@ if( !empty($_POST['btn_confirm']) ) {
         var_dump($response_data);
     }
 
+    $from_name = '一般社団法人日本美容内科学会';
+    $from_mail = 'ask@jaim2023.com';
+    $encoded_from = mb_encode_mimeheader($from_name) . ' <' . $from_mail . '>';
+
     // ヘッダー情報を設定
     $header = "MIME-Version: 1.0\n";
-    $header .= "From: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
-    $header .= "Reply-To: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
+    // $header .= "From: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
+    // $header .= "Reply-To: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
+    $header .= "From: {$encoded_from}\n";
+    $header .= "Reply-To: {$encoded_from}\n";
+    $header .= "Content-Type: text/plain; charset=UTF-8\n";
+    $header .= "Content-Transfer-Encoding: 7bit\n";
 
     // 件名を設定
     $auto_reply_subject = 'ご入会のお申し込みありがとうございます';
@@ -327,17 +338,10 @@ if( !empty($_POST['btn_confirm']) ) {
         }
     $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
 
-    $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-    $auto_reply_text .= "【一般社団法人日本美容内科学会】\n";
-    $auto_reply_text .= "住所：〒104-0061　東京都中央区銀座1-12-4 N&E BLD. 7階\n";
-    $auto_reply_text .= "TEL：090-3813-7241\n";
-    $auto_reply_text .= "メール：ask@jaim2023.com\n";
-    $auto_reply_text .= "担当：伊藤　明子\n\n";
-    $auto_reply_text .= "━━━━━━━━━━━━━━━━━━━━━━━━\n";
-
 
     // メール送信
-    mb_send_mail( $_POST['email'], $auto_reply_subject, $auto_reply_text, $header);
+    $encoded_subject = mb_encode_mimeheader($auto_reply_subject, 'UTF-8');
+    mb_send_mail( $_POST['email'], $encoded_subject, $auto_reply_text, $header);
 
     // PHPでリダイレクトを実行
     if (!empty($_POST['type']) && $_POST['type'] === "正会員A") {
