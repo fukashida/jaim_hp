@@ -63,9 +63,6 @@ if( !empty($_POST['btn_confirm']) ) {
     $admin_reply_text = null;
     date_default_timezone_set('Asia/Tokyo');
 
-    mb_language("Japanese");
-    mb_internal_encoding("UTF-8");
-
     if(count($_POST)){
         $url = 'https://script.google.com/macros/s/AKfycbxn0c00QsQ9FxvDaaYtkwpxZrV5wx_2XGrSUHvQQbofdCKPhBMU3osXwWyR5EpUOaeUHg/exec';
         $data = array(
@@ -133,8 +130,7 @@ if( !empty($_POST['btn_confirm']) ) {
     // $header .= "Reply-To: 一般社団法人日本美容内科学会 <ask@jaim2023.com>\n";
     $header .= "From: {$encoded_from}\n";
     $header .= "Reply-To: {$encoded_from}\n";
-    $header .= "Content-Type: text/plain; charset=UTF-8\n";
-    $header .= "Content-Transfer-Encoding: 7bit\n";
+    // $header .= "Content-Type: text/plain; charset=UTF-8\n";
 
     // 件名を設定
     $auto_reply_subject = 'ご入会のお申し込みありがとうございます';
@@ -340,8 +336,7 @@ if( !empty($_POST['btn_confirm']) ) {
 
 
     // メール送信
-    $encoded_subject = mb_encode_mimeheader($auto_reply_subject, 'UTF-8');
-    mb_send_mail( $_POST['email'], $encoded_subject, $auto_reply_text, $header);
+    mb_send_mail( $_POST['email'], $auto_reply_subject, $auto_reply_text, $header);
 
     // PHPでリダイレクトを実行
     if (!empty($_POST['type']) && $_POST['type'] === "正会員A") {
