@@ -732,6 +732,15 @@ main.organization .about .container .sub-container a::after {
   left: 0;
   border-bottom: solid 2px #70BCCB;
 }
+main.organization .about .container .sub-container img.banner {
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+@media screen and (max-width:540px) {
+  main.organization .about .container .sub-container img.banner {
+    margin-top: 40px;
+  }
+}
 main.article .container .sub-container.error {
   margin: 0 auto;
 }

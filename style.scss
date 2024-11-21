@@ -706,6 +706,15 @@
                                 border-bottom: solid 2px #70BCCB;
                             }
                         }
+                        & img{
+                            &.banner{
+                                margin-top: 50px;
+                                margin-bottom: 0;
+                                @include pc(sp){
+                                    margin-top: 40px;
+                                }
+                            }
+                        }
                     }
                 }
             }

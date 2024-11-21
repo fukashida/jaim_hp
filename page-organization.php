@@ -151,6 +151,8 @@
                     </div>
                 </div>
                 <a class="std7" target="_blank" href="https://jaim2023.com/pdf/incorporation.pdf">定款はこちら</a>
+                <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/infix.webp" alt="" class="banner">
+                <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/medical-force.webp" alt="" class="banner">
             </div>
             <div class="mini-container">
                 <?php get_sidebar() ?>
