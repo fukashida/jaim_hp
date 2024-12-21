@@ -23,7 +23,7 @@
                         <div class="line">
                             <p class="std7">お問い合わせについて</p>
                             <p>お問い合わせは、<br class="sp">公式LINEよりお願いします。<br><br class="sp">
-                            下記フォームからのお問合せは、<br class="sp">返信にお時間をいただく場合が<br class="sp">ございます。<br><br class="sp">ご了承ください。
+                            ご返信まで、<br class="sp">お時間をいただく場合がございます。<br><br class="sp">ご了承ください。
                             </p>
                             <a target="_blank" class="button inq" href="https://lin.ee/tMc4HRi">公式LINEはこちら</a>
                         </div>
