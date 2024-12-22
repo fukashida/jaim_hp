@@ -28,7 +28,7 @@
                             <a target="_blank" class="button inq" href="https://lin.ee/tMc4HRi">公式LINEはこちら</a>
                         </div>
                     </div>
-
+            </div>
             </div>
         </section>
 
