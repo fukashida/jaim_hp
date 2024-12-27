@@ -11,9 +11,10 @@
                 <iframe width="100%" height="200" src="https://www.youtube.com/embed/lmAx0RdzxZk?si=sPrdYML9-26WwBiK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <div class="pc">
-                    <iframe width="100%" height="450" src="https://www.youtube-nocookie.com/embed/zfGqB8kQRzA?si=fqWJ4qpWodKyhgEb&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
+                <iframe width="100%" height="450" src="https://www.youtube-nocookie.com/embed/zfGqB8kQRzA?si=fqWJ4qpWodKyhgEb&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
                 <div class="sp">
-                    <iframe width="100%" height="200" src="https://www.youtube-nocookie.com/embed/zfGqB8kQRzA?si=fqWJ4qpWodKyhgEb&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                </div>
+                <iframe width="100%" height="200" src="https://www.youtube-nocookie.com/embed/zfGqB8kQRzA?si=fqWJ4qpWodKyhgEb&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 </div>
                 <h2 class="std7">日本美容内科学会について</h2>
                 <p>当学会は、従来からある美容外科、美容皮膚科による美容医療を補填・支持する役割を持つ美容内科という分野を明確にしつつ、本来、内科が大切にしてきたEBM(evidence based medicine)に基づく真に効果的で安全な美容内科医療を学会会員全員で構築していくことを目的としています。</p>
