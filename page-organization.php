@@ -36,7 +36,6 @@
                     <img src="<?php echo esc_url( get_template_directory_uri() ); ?>/img/prf01.webp" alt="">
                     <div class="item">
                         <p class="std7"><span>青木 晃　</span>Aoki Akira</p>
-                        <p class="std5">医療法人社団晃和会<br class="sp">ウェルエイジングクリニック南青山理事長</p>
                     </div>
                 </div>
                 <h2 class="std7">副理事長</h2>
